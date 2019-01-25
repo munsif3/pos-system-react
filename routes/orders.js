@@ -7,20 +7,10 @@ const router = express.Router();
 // @access  Public
 router.get("/", (req, res) => {
   database
-    .query("SELECT * FROM orders WHERE is_open = true")
+    .query("SELECT * FROM orders WHERE is_open = true ORDER BY created_at DESC")
     .then(data => res.status(200).json(data))
     .catch(err => res.status(500).send({ error: err }));
 });
-
-// @route   GET api/v1/orders/:id
-// @desc    Get Order by ID
-// @access  Public
-// router.get("/:id", (req, res) => {
-//   database
-//     .query("SELECT * FROM orders WHERE order_no = ?", [req.params.id])
-//     .then(data => res.status(200).json(data[0]))
-//     .catch(err => res.status(500).send({ error: err }));
-// });
 
 // @route   POST api/v1/orders
 // @desc    Create an Order
@@ -40,5 +30,15 @@ router.post("/", (req, res) => {
     .then(data => res.status(201).json(data.insertId))
     .catch(err => res.status(500).send({ error: err }));
 });
+
+// @route   GET api/v1/orders/:id
+// @desc    Get Order by ID
+// @access  Public
+// router.get("/:id", (req, res) => {
+//   database
+//     .query("SELECT * FROM orders WHERE order_no = ?", [req.params.id])
+//     .then(data => res.status(200).json(data[0]))
+//     .catch(err => res.status(500).send({ error: err }));
+// });
 
 module.exports = router;

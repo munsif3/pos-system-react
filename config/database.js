@@ -2,8 +2,8 @@ const mysql = require("mysql2");
 
 const pool = mysql.createPool({
   connectionLimit: process.env.MYSQL_CONNECTION_LIMIT || 10,
-  host: process.env.MYSQL_HOST || "db4free.net",
-  user: process.env.MYSQL_USER || "munsif",
+  host: process.env.MYSQL_HOST || "0.0.0.0",
+  user: process.env.MYSQL_USER || "root",
   password: "munsif123",
   database: "possystem"
 });

@@ -18,7 +18,7 @@ class App extends Component {
             <Switch>
               <Route path="/" component={OrderList} exact />
               <Route path="/orders" component={OrderList} />
-              {/* <Route component={Error} /> */}
+              <Route component={Error} />
             </Switch>
           </div>
         </BrowserRouter>
