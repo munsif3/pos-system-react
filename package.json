@@ -1,0 +1,35 @@
+{
+  "name": "pos-system",
+  "version": "1.0.0",
+  "description": "A Simple POS System built using ReactJS and NodeJS",
+  "main": "server.js",
+  "scripts": {
+    "client-install": "npm install --prefix client",
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "test": "mocha ./tests --recursive",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/munsif3/pos-system-react.git"
+  },
+  "author": "Munsif Musthafa",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/munsif3/pos-system-react/issues"
+  },
+  "homepage": "https://github.com/munsif3/pos-system-react#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "concurrently": "^4.1.0",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "mysql2": "^1.6.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
+  }
+}
