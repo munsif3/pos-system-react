@@ -8,9 +8,9 @@ const router = express.Router();
 // @access  Public
 router.get("/:id", (req, res) => {
   const sql = `SELECT d.order_no, d.item_id, d.qty, i.unit_price, i.name
-                FROM items i, orders o, order_item_detail d
-                WHERE o.order_no = d.order_no and i.item_id = d.item_id
-                AND o.order_no = ?`;
+              FROM items i, orders o, order_item_detail d
+              WHERE o.order_no = d.order_no and i.item_id = d.item_id
+              AND o.order_no = ?`;
   database
     .query(sql, [req.params.id])
     .then(data => res.status(200).json(data[0]))
