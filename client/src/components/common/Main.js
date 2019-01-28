@@ -1,7 +1,8 @@
 import React from "react";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
-import OrderList from "../order-list/OrderList";
-import OrderModal from "../OrderModal";
+import Orders from "../order-list/Orders";
+import OrderListItem from "../order-list/OrderListItem";
+import OrderModal from "../order/OrderModal";
 import NavBar from "./NavBar";
 import Login from "../login/Login";
 
@@ -11,7 +12,7 @@ const Main = () => {
       <NavBar />
       <Router>
         <Switch>
-          <Route exact path="/" component={OrderList} />
+          <Route exact path="/" component={Orders} />
           {/* <Route path="/new" component={OrderModal} /> */}
           <Route path="/login" component={Login} />
         </Switch>

@@ -13,58 +13,39 @@ import {
 } from "reactstrap";
 import { connect } from "react-redux";
 import { getItems } from "../../actions/itemActions";
-import { getOrder } from "../../actions/orderActions";
 
 class OrderModal extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      modal: this.props.modal,
-      selectedItem: "1",
-      order: {}
-    };
-  }
-
-  toggle = () => {
-    this.setState({ modal: !this.state.modal });
-    this.props.toggleModalState();
+  state = {
+    modal: this.props.modal
   };
 
   componentDidMount() {
     this.props.getItems();
-    this.props.getOrder(this.props.orderNo);
   }
 
-  onItemChange = e => {
-    this.setState({ selectedItem: e.target.value });
+  toggle = () => {
+    this.setState({ modal: !this.state.modal });
   };
 
   render() {
-    const removeItem = (
-      <Button className="remove-btn" size="sm" color="danger" outline>
-        &times;
-      </Button>
-    );
-
-    const itemsList = this.props.items.map(({ item_id, name }) => (
-      <option key={item_id} value={item_id}>
-        {name}
-      </option>
+    const items = this.props.items.map(({ item_id, name, unit_price }) => (
+      <option key={item_id}>{name}</option>
     ));
-
-    const unitPrice = this.props.items.map(
-      ({ item_id, unit_price }) =>
-        item_id == this.state.selectedItem && (
-          <Label key={item_id}>{unit_price}</Label>
-        )
-    );
 
     return (
       <Container>
-        <Modal size="lg" isOpen={this.props.modal} toggle={this.toggle}>
-          <ModalHeader toggle={this.toggle}>
-            Order #{this.props.orderNo}
-          </ModalHeader>
+        <Button
+          className="float-right"
+          color="primary"
+          size="lg"
+          style={{ marginBottom: "2rem" }}
+          onClick={this.toggle}
+        >
+          New &nbsp; &#43;
+        </Button>
+
+        <Modal size="lg" isOpen={this.state.modal}>
+          <ModalHeader toggle={this.toggle}>Add New Order</ModalHeader>
           <ModalBody>
             <Form onSubmit={this.onSubmit}>
               <Table responsive>
@@ -80,20 +61,14 @@ class OrderModal extends Component {
 
                 <tbody>
                   <tr>
-                    <td>{removeItem}</td>
                     <td>
                       <FormGroup>
-                        <Input
-                          type="select"
-                          name="select"
-                          id="itemSelect"
-                          onChange={this.onItemChange}
-                        >
-                          {itemsList}
+                        <Input type="select" name="select" id="itemSelect">
+                          {items}
                         </Input>
                       </FormGroup>
                     </td>
-                    <td>{unitPrice}</td>
+                    <td>15.00</td>
                     <td>
                       <Input
                         type="number"
@@ -112,7 +87,7 @@ class OrderModal extends Component {
                     <td />
                     <td>
                       <FormGroup>
-                        <Label> 50.00</Label>
+                        <Label size="lg"> 50.00</Label>
                       </FormGroup>
                     </td>
                   </tr>
@@ -123,7 +98,6 @@ class OrderModal extends Component {
                 color="primary"
                 size="lg"
                 style={{ marginTop: "2rem", width: "10vw" }}
-                onClick={this.toggle}
               >
                 Save
               </Button>
@@ -136,11 +110,10 @@ class OrderModal extends Component {
 }
 
 const mapStateToProps = state => ({
-  items: state.item.items,
-  order: state.order.order
+  items: state.item.items
 });
 
 export default connect(
   mapStateToProps,
-  { getItems, getOrder }
+  { getItems }
 )(OrderModal);

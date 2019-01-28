@@ -13,12 +13,12 @@ export const getOrders = () => dispatch => {
 
 export const getOrder = id => dispatch => {
   dispatch(setItemsLoading());
-  axios.get(`/api/v1/order-details/${id}`).then(res =>
+  axios.get(`/api/v1/order-details/${id}`).then(res => {
     dispatch({
       type: GET_ORDER,
       payload: res.data
-    })
-  );
+    });
+  });
 };
 
 export const setItemsLoading = () => {
