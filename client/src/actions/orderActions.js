@@ -4,7 +4,8 @@ import {
   GET_ORDER_LIST,
   ITEMS_LOADING,
   UPDATE_QTY,
-  DELETE_ITEM_FROM_ORDER
+  DELETE_ITEM_FROM_ORDER,
+  ADD_ITEM_TO_ORDER
 } from "./types";
 
 export const getOrders = () => dispatch => {
@@ -41,6 +42,13 @@ export const deleteItemFromOrder = id => dispatch => {
   dispatch({
     type: DELETE_ITEM_FROM_ORDER,
     payload: id
+  });
+};
+
+export const addItemToOrder = orderItem => dispatch => {
+  dispatch({
+    type: ADD_ITEM_TO_ORDER,
+    payload: orderItem
   });
 };
 

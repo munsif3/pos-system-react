@@ -13,24 +13,26 @@ import { getItems } from "../../actions/itemActions";
 import {
   getOrder,
   updateQuantity,
-  deleteItemFromOrder
+  deleteItemFromOrder,
+  addItemToOrder
 } from "../../actions/orderActions";
 import ItemsList from "./ItemsList";
-import ItemSelectBox from "../common/ItemSelectBox";
-import UnitPriceField from "../common/UnitPriceField";
-import QuantityField from "../common/QuantityField";
 import BillAmount from "../common/BillAmount";
+import NewItemRow from "./NewItemRow";
 
 class OrderModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
       modal: this.props.modal,
-      selectedItem: "1",
-      changedQty: 0,
-      changedRow: 0
+      selectedItem: "1"
     };
   }
+
+  toggle = () => {
+    this.setState({ modal: !this.state.modal });
+    this.props.toggleModalState();
+  };
 
   totalPriceForOrder = () => {
     return this.props.orderItems.reduce((accumulator, currentValue) => {
@@ -38,20 +40,10 @@ class OrderModal extends Component {
     }, 0);
   };
 
-  toggle = () => {
-    this.setState({ modal: !this.state.modal });
-    this.props.toggleModalState();
-  };
-
-  onSubmit = e => {
-    e.preventDefault();
-  };
-
   onChangeQty = (row, qty) => {
     const indexOfChangedQty = this.props.orderItems.findIndex(
       item => item["item_id"] == row
     );
-
     this.props.updateQuantity(indexOfChangedQty, qty);
   };
 
@@ -59,8 +51,16 @@ class OrderModal extends Component {
     this.props.deleteItemFromOrder(id);
   };
 
+  onItemAdd = item => {
+    this.props.addItemToOrder(item);
+  };
+
   onItemChange = e => {
     this.setState({ selectedItem: e.target.value });
+  };
+
+  onSubmit = e => {
+    e.preventDefault();
   };
 
   componentDidMount() {
@@ -95,7 +95,6 @@ class OrderModal extends Component {
                 </thead>
                 <tbody>
                   <ItemsList
-                    row={this.state.changedRow}
                     orderNo={this.props.orderNo}
                     orderItems={this.props.orderItems}
                     items={this.props.items}
@@ -105,32 +104,15 @@ class OrderModal extends Component {
                     onDelete={this.onItemDelete}
                   />
 
-                  <tr className="new-row">
-                    <td />
-                    <td>
-                      <ItemSelectBox
-                        items={this.props.items}
-                        selectedItem={this.state.selectedItem}
-                        onChange={this.onItemChange}
-                      />
-                    </td>
-                    <td>
-                      <UnitPriceField
-                        items={this.props.items}
-                        passUnitPrice={this.passUnitPrice}
-                        currentItem={this.state.selectedItem}
-                      />
-                    </td>
-                    <td>
-                      <QuantityField qty={1} onChangeQty={this.onChangeQty} />
-                    </td>
-                    <td>Rs. </td>
-                    <td>
-                      <Button className="remove-btn" color="success" outline>
-                        &#x2b;
-                      </Button>
-                    </td>
-                  </tr>
+                  <NewItemRow
+                    items={this.props.items}
+                    onChange={this.onItemChange}
+                    selectedItem={this.state.selectedItem}
+                    passUnitPrice={this.passUnitPrice}
+                    currentItem={this.state.selectedItem}
+                    onChangeQty={this.onChangeQty}
+                    onItemAdd={this.onItemAdd}
+                  />
                 </tbody>
               </Table>
               <div className="text-center">
@@ -161,5 +143,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getItems, getOrder, updateQuantity, deleteItemFromOrder }
+  { getItems, getOrder, updateQuantity, deleteItemFromOrder, addItemToOrder }
 )(OrderModal);

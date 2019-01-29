@@ -3,7 +3,8 @@ import {
   GET_ORDER_LIST,
   ITEMS_LOADING,
   UPDATE_QTY,
-  DELETE_ITEM_FROM_ORDER
+  DELETE_ITEM_FROM_ORDER,
+  ADD_ITEM_TO_ORDER
 } from "../actions/types";
 
 const initialState = {
@@ -44,6 +45,12 @@ export default function(state = initialState, action) {
         orderItems: state.orderItems.filter(
           orderItem => orderItem["item_id"] !== action.payload
         )
+      };
+
+    case ADD_ITEM_TO_ORDER:
+      return {
+        ...state,
+        orderItems: [...state.orderItems, action.payload]
       };
 
     case ITEMS_LOADING:
