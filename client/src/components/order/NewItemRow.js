@@ -26,10 +26,19 @@ class NewItemRow extends Component {
         <td>
           <QuantityField qty={1} onChangeQty={this.props.onChangeQty} />
         </td>
-        <td>Rs. </td>
+        <td>Rs. Price</td>
         <td>
-          <Button color="success" onClick={this.props.onItemAdd} outline>
-            &#x2b; Add
+          <Button
+            color="success"
+            onClick={() =>
+              this.props.onItemAdd(
+                this.props.selectedItem,
+                this.props.changedQty
+              )
+            }
+            outline
+          >
+            &#x2b;
           </Button>
         </td>
       </tr>

@@ -48,9 +48,24 @@ export default function(state = initialState, action) {
       };
 
     case ADD_ITEM_TO_ORDER:
+      const newItem = {
+        item_id: Number(action.payload.itemId),
+        qty: Number(action.payload.qty)
+      };
+
+      let index = state.orderItems.findIndex(
+        element => element["item_id"] == action.payload.itemId
+      );
+
+      if (index > -1) {
+        state.orderItems[index] = { ...state.orderItems[index] };
+        state.orderItems[index]["qty"] += newItem.qty;
+      }
+
       return {
         ...state,
-        orderItems: [...state.orderItems, action.payload]
+        orderItems:
+          index > -1 ? [...state.orderItems] : [...state.orderItems, newItem]
       };
 
     case ITEMS_LOADING:

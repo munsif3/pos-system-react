@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import {
   Button,
   Modal,
@@ -8,24 +9,24 @@ import {
   Container,
   Table
 } from "reactstrap";
-import { connect } from "react-redux";
-import { getItems } from "../../actions/itemActions";
 import {
   getOrder,
   updateQuantity,
   deleteItemFromOrder,
   addItemToOrder
 } from "../../actions/orderActions";
+import { getItems } from "../../actions/itemActions";
 import ItemsList from "./ItemsList";
-import BillAmount from "../common/BillAmount";
 import NewItemRow from "./NewItemRow";
+import BillAmount from "../common/BillAmount";
 
 class OrderModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
       modal: this.props.modal,
-      selectedItem: "1"
+      selectedItem: "1",
+      changedQty: 0
     };
   }
 
@@ -35,12 +36,14 @@ class OrderModal extends Component {
   };
 
   totalPriceForOrder = () => {
+    console.log("this.props.orderItems", this.props.orderItems);
     return this.props.orderItems.reduce((accumulator, currentValue) => {
       return accumulator + currentValue.unit_price * currentValue.qty;
     }, 0);
   };
 
   onChangeQty = (row, qty) => {
+    this.setState({ changedQty: qty });
     const indexOfChangedQty = this.props.orderItems.findIndex(
       item => item["item_id"] == row
     );
@@ -51,8 +54,8 @@ class OrderModal extends Component {
     this.props.deleteItemFromOrder(id);
   };
 
-  onItemAdd = item => {
-    this.props.addItemToOrder(item);
+  onItemAdd = (itemId, qty) => {
+    this.props.addItemToOrder(itemId, qty);
   };
 
   onItemChange = e => {
@@ -111,6 +114,7 @@ class OrderModal extends Component {
                     passUnitPrice={this.passUnitPrice}
                     currentItem={this.state.selectedItem}
                     onChangeQty={this.onChangeQty}
+                    changedQty={this.state.changedQty}
                     onItemAdd={this.onItemAdd}
                   />
                 </tbody>

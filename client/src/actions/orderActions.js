@@ -45,10 +45,13 @@ export const deleteItemFromOrder = id => dispatch => {
   });
 };
 
-export const addItemToOrder = orderItem => dispatch => {
+export const addItemToOrder = (itemId, qty) => dispatch => {
   dispatch({
     type: ADD_ITEM_TO_ORDER,
-    payload: orderItem
+    payload: {
+      itemId: itemId,
+      qty: qty
+    }
   });
 };
 
