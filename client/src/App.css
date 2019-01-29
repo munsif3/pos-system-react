@@ -1,3 +1,11 @@
+.new-row {
+  background-color: #f4fff6;
+}
+
+.order-list-item {
+  margin: "1rem";
+}
+
 .remove-btn {
   margin-right: 0.5rem;
 }

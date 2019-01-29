@@ -5,15 +5,18 @@ import {
   ModalHeader,
   ModalBody,
   Form,
+  Label,
   Container,
   FormGroup,
-  Label,
-  Input,
   Table
 } from "reactstrap";
 import { connect } from "react-redux";
 import { getItems } from "../../actions/itemActions";
-import { getOrder } from "../../actions/orderActions";
+import ItemsList from "./ItemsList";
+import DeleteItemButton from "../common/DeleteItemButton";
+import ItemSelectBox from "../common/ItemSelectBox";
+import UnitPriceField from "../common/UnitPriceField";
+import QuantityField from "../common/QuantityField";
 
 class OrderModal extends Component {
   constructor(props) {
@@ -21,44 +24,57 @@ class OrderModal extends Component {
     this.state = {
       modal: this.props.modal,
       selectedItem: "1",
-      order: {}
+      unitPrice: 0,
+      unitPricePerItem: 0,
+      selectedUnitPrice: 0
     };
   }
+
+  totalPriceForItem = (unitPrice, qty) => {
+    return unitPrice * qty;
+  };
+
+  totalPriceForOrder = totalPerItem => {
+    return totalPerItem.reduce((accumulator, reducer) => accumulator + reducer);
+  };
+
+  passUnitPrice = unitPrice => {
+    this.setState({ unitPrice });
+  };
+
+  // setUnitPrice = itemId => {
+  //   this.state.selectedUnitPrice = this.props.items.reduce(
+  //     item => item.item_id == itemId
+  //   );
+  // };
 
   toggle = () => {
     this.setState({ modal: !this.state.modal });
     this.props.toggleModalState();
   };
 
-  componentDidMount() {
-    this.props.getItems();
-    this.props.getOrder(this.props.orderNo);
-  }
+  onSubmit = e => {
+    e.preventDefault();
+  };
+
+  onChangeQty = e => {
+    this.setState({
+      unitPricePerItem: this.totalPriceForItem(
+        this.state.unitPrice,
+        e.target.value
+      )
+    });
+  };
 
   onItemChange = e => {
     this.setState({ selectedItem: e.target.value });
   };
 
+  componentDidMount() {
+    this.props.getItems();
+  }
+
   render() {
-    const removeItem = (
-      <Button className="remove-btn" size="sm" color="danger" outline>
-        &times;
-      </Button>
-    );
-
-    const itemsList = this.props.items.map(({ item_id, name }) => (
-      <option key={item_id} value={item_id}>
-        {name}
-      </option>
-    ));
-
-    const unitPrice = this.props.items.map(
-      ({ item_id, unit_price }) =>
-        item_id == this.state.selectedItem && (
-          <Label key={item_id}>{unit_price}</Label>
-        )
-    );
-
     return (
       <Container>
         <Modal size="lg" isOpen={this.props.modal} toggle={this.toggle}>
@@ -75,36 +91,46 @@ class OrderModal extends Component {
                     <th>Unit Price</th>
                     <th>Qty</th>
                     <th>Rs.</th>
+                    <th />
                   </tr>
                 </thead>
-
                 <tbody>
-                  <tr>
-                    <td>{removeItem}</td>
+                  <ItemsList
+                    orderNo={this.props.orderNo}
+                    items={this.props.items}
+                    selectedItem={this.state.selectedItem}
+                    onChangeQty={this.onChangeQty}
+                    passUnitPrice={this.passUnitPrice}
+                    unitPricePerItem={this.state.unitPricePerItem}
+                  />
+
+                  <tr className="new-row">
+                    <td>{/* <DeleteItemButton /> */}</td>
                     <td>
-                      <FormGroup>
-                        <Input
-                          type="select"
-                          name="select"
-                          id="itemSelect"
-                          onChange={this.onItemChange}
-                        >
-                          {itemsList}
-                        </Input>
-                      </FormGroup>
-                    </td>
-                    <td>{unitPrice}</td>
-                    <td>
-                      <Input
-                        type="number"
-                        name="qty"
-                        id="qty"
-                        style={{ width: "6vw" }}
+                      <ItemSelectBox
+                        items={this.props.items}
+                        selectedItem={this.state.selectedItem}
+                        onChange={this.onItemChange}
                       />
                     </td>
-                    <td>30.00</td>
+                    <td>
+                      <UnitPriceField
+                        items={this.props.items}
+                        selectedItem={this.state.selectedItem}
+                        passUnitPrice={this.passUnitPrice}
+                        currentItem={this.state.selectedItem}
+                      />
+                    </td>
+                    <td>
+                      <QuantityField qty={1} onChangeQty={this.onChangeQty} />
+                    </td>
+                    <td>{this.state.unitPricePerItem}</td>
+                    <td>
+                      <Button className="remove-btn" color="success" outline>
+                        &#x2b;
+                      </Button>
+                    </td>
                   </tr>
-
                   <tr>
                     <td />
                     <td />
@@ -112,9 +138,10 @@ class OrderModal extends Component {
                     <td />
                     <td>
                       <FormGroup>
-                        <Label> 50.00</Label>
+                        <Label>Rs. 1200.00</Label>
                       </FormGroup>
                     </td>
+                    <td />
                   </tr>
                 </tbody>
               </Table>
@@ -136,11 +163,10 @@ class OrderModal extends Component {
 }
 
 const mapStateToProps = state => ({
-  items: state.item.items,
-  order: state.order.order
+  items: state.item.items
 });
 
 export default connect(
   mapStateToProps,
-  { getItems, getOrder }
+  { getItems }
 )(OrderModal);

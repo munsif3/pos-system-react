@@ -24,3 +24,6 @@ export default function(state = initialState, action) {
       return state;
   }
 }
+
+// update items
+// store clicked item

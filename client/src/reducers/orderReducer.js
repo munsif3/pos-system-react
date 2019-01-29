@@ -2,7 +2,7 @@ import { GET_ORDER, GET_ORDER_LIST, ITEMS_LOADING } from "../actions/types";
 
 const initialState = {
   orders: [],
-  order: {},
+  orderItems: [],
   loading: false
 };
 
@@ -18,7 +18,7 @@ export default function(state = initialState, action) {
     case GET_ORDER:
       return {
         ...state,
-        order: action.payload,
+        orderItems: action.payload,
         loading: false
       };
 
