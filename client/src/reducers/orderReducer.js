@@ -2,7 +2,8 @@ import {
   GET_ORDER,
   GET_ORDER_LIST,
   ITEMS_LOADING,
-  UPDATE_QTY
+  UPDATE_QTY,
+  DELETE_ITEM_FROM_ORDER
 } from "../actions/types";
 
 const initialState = {
@@ -34,6 +35,14 @@ export default function(state = initialState, action) {
           action.payload.id == index
             ? { ...orderItem, qty: action.payload.newQty }
             : orderItem
+        )
+      };
+
+    case DELETE_ITEM_FROM_ORDER:
+      return {
+        ...state,
+        orderItems: state.orderItems.filter(
+          orderItem => orderItem["item_id"] !== action.payload
         )
       };
 

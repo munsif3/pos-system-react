@@ -5,16 +5,17 @@ import {
   ModalHeader,
   ModalBody,
   Form,
-  Label,
   Container,
-  FormGroup,
   Table
 } from "reactstrap";
 import { connect } from "react-redux";
 import { getItems } from "../../actions/itemActions";
-import { getOrder, updateQuantity } from "../../actions/orderActions";
+import {
+  getOrder,
+  updateQuantity,
+  deleteItemFromOrder
+} from "../../actions/orderActions";
 import ItemsList from "./ItemsList";
-import DeleteItemButton from "../common/DeleteItemButton";
 import ItemSelectBox from "../common/ItemSelectBox";
 import UnitPriceField from "../common/UnitPriceField";
 import QuantityField from "../common/QuantityField";
@@ -47,22 +48,15 @@ class OrderModal extends Component {
   };
 
   onChangeQty = (row, qty) => {
-    // this.props.dispatch(setCurrentOrderSuccess(order));
-
-    // this.props.dispatch()
-
-    // this.setState({ changedQty: qty, changedRow: row });
-
     const indexOfChangedQty = this.props.orderItems.findIndex(
       item => item["item_id"] == row
     );
 
     this.props.updateQuantity(indexOfChangedQty, qty);
+  };
 
-    // console.log("myy", indexOfChangedQty, qty, row);
-    // this.setState(() => ({
-    //   items: update(this.state.items, { [index]: { quantity: { $set: quantity } } })
-    // }));
+  onItemDelete = id => {
+    this.props.deleteItemFromOrder(id);
   };
 
   onItemChange = e => {
@@ -108,6 +102,7 @@ class OrderModal extends Component {
                     selectedItem={this.state.selectedItem}
                     onChangeQty={this.onChangeQty}
                     passUnitPrice={this.passUnitPrice}
+                    onDelete={this.onItemDelete}
                   />
 
                   <tr className="new-row">
@@ -166,5 +161,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getItems, getOrder, updateQuantity }
+  { getItems, getOrder, updateQuantity, deleteItemFromOrder }
 )(OrderModal);
