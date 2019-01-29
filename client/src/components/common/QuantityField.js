@@ -8,7 +8,7 @@ class QuantityField extends Component {
         type="number"
         name="qty"
         id="qty"
-        value={this.props.qty}
+        defaultValue={this.props.qty}
         style={{ width: "10vw" }}
         onChange={this.props.onChangeQty}
       />

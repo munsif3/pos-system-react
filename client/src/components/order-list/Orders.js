@@ -17,7 +17,7 @@ const Orders = () => {
           <OrderListItem />
         </TransitionGroup>
       </ListGroup>
-      <NewOrderModal />
+      {/* <NewOrderModal /> */}
     </Container>
   );
 };

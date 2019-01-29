@@ -12,11 +12,13 @@ import {
 } from "reactstrap";
 import { connect } from "react-redux";
 import { getItems } from "../../actions/itemActions";
+import { getOrder } from "../../actions/orderActions";
 import ItemsList from "./ItemsList";
 import DeleteItemButton from "../common/DeleteItemButton";
 import ItemSelectBox from "../common/ItemSelectBox";
 import UnitPriceField from "../common/UnitPriceField";
 import QuantityField from "../common/QuantityField";
+import BillAmount from "../common/BillAmount";
 
 class OrderModal extends Component {
   constructor(props) {
@@ -26,27 +28,16 @@ class OrderModal extends Component {
       selectedItem: "1",
       unitPrice: 0,
       unitPricePerItem: 0,
-      selectedUnitPrice: 0
+      selectedUnitPrice: 0,
+      tot: 0
     };
   }
 
-  totalPriceForItem = (unitPrice, qty) => {
-    return unitPrice * qty;
+  totalPriceForOrder = () => {
+    return this.props.orderItems.reduce((accumulator, currentValue) => {
+      return accumulator + currentValue.unit_price * currentValue.qty;
+    }, 0);
   };
-
-  totalPriceForOrder = totalPerItem => {
-    return totalPerItem.reduce((accumulator, reducer) => accumulator + reducer);
-  };
-
-  passUnitPrice = unitPrice => {
-    this.setState({ unitPrice });
-  };
-
-  // setUnitPrice = itemId => {
-  //   this.state.selectedUnitPrice = this.props.items.reduce(
-  //     item => item.item_id == itemId
-  //   );
-  // };
 
   toggle = () => {
     this.setState({ modal: !this.state.modal });
@@ -57,14 +48,14 @@ class OrderModal extends Component {
     e.preventDefault();
   };
 
-  onChangeQty = e => {
-    this.setState({
-      unitPricePerItem: this.totalPriceForItem(
-        this.state.unitPrice,
-        e.target.value
-      )
-    });
-  };
+  // onChangeQty = e => {
+  //   this.setState({
+  //     unitPricePerItem: this.totalPriceForItem(
+  //       this.state.unitPrice,
+  //       e.target.value
+  //     )
+  //   });
+  // };
 
   onItemChange = e => {
     this.setState({ selectedItem: e.target.value });
@@ -72,6 +63,12 @@ class OrderModal extends Component {
 
   componentDidMount() {
     this.props.getItems();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.orderNo !== prevProps.orderNo) {
+      this.props.getOrder(this.props.orderNo);
+    }
   }
 
   render() {
@@ -97,6 +94,7 @@ class OrderModal extends Component {
                 <tbody>
                   <ItemsList
                     orderNo={this.props.orderNo}
+                    orderItems={this.props.orderItems}
                     items={this.props.items}
                     selectedItem={this.state.selectedItem}
                     onChangeQty={this.onChangeQty}
@@ -105,7 +103,7 @@ class OrderModal extends Component {
                   />
 
                   <tr className="new-row">
-                    <td>{/* <DeleteItemButton /> */}</td>
+                    <td />
                     <td>
                       <ItemSelectBox
                         items={this.props.items}
@@ -131,20 +129,12 @@ class OrderModal extends Component {
                       </Button>
                     </td>
                   </tr>
-                  <tr>
-                    <td />
-                    <td />
-                    <td />
-                    <td />
-                    <td>
-                      <FormGroup>
-                        <Label>Rs. 1200.00</Label>
-                      </FormGroup>
-                    </td>
-                    <td />
-                  </tr>
                 </tbody>
               </Table>
+              <hr />
+              <div className="text-center">
+                <BillAmount totalAmount={this.totalPriceForOrder()} />
+              </div>
               <Button
                 className="float-right"
                 color="primary"
@@ -163,10 +153,11 @@ class OrderModal extends Component {
 }
 
 const mapStateToProps = state => ({
-  items: state.item.items
+  items: state.item.items,
+  orderItems: state.order.orderItems
 });
 
 export default connect(
   mapStateToProps,
-  { getItems }
+  { getItems, getOrder }
 )(OrderModal);
