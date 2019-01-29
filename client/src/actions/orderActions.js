@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_ORDER, GET_ORDER_LIST, ITEMS_LOADING } from "./types";
+import { GET_ORDER, GET_ORDER_LIST, ITEMS_LOADING, UPDATE_QTY } from "./types";
 
 export const getOrders = () => dispatch => {
   dispatch(setItemsLoading());
@@ -18,6 +18,16 @@ export const getOrder = id => dispatch => {
       type: GET_ORDER,
       payload: res.data
     });
+  });
+};
+
+export const updateQuantity = (id, newQty) => dispatch => {
+  dispatch({
+    type: UPDATE_QTY,
+    payload: {
+      id: id,
+      newQty: newQty
+    }
   });
 };
 

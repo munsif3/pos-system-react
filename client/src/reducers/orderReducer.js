@@ -1,4 +1,9 @@
-import { GET_ORDER, GET_ORDER_LIST, ITEMS_LOADING } from "../actions/types";
+import {
+  GET_ORDER,
+  GET_ORDER_LIST,
+  ITEMS_LOADING,
+  UPDATE_QTY
+} from "../actions/types";
 
 const initialState = {
   orders: [],
@@ -20,6 +25,16 @@ export default function(state = initialState, action) {
         ...state,
         orderItems: action.payload,
         loading: false
+      };
+
+    case UPDATE_QTY:
+      return {
+        ...state,
+        orderItems: state.orderItems.map((orderItem, index) =>
+          action.payload.id == index
+            ? { ...orderItem, qty: action.payload.newQty }
+            : orderItem
+        )
       };
 
     case ITEMS_LOADING:

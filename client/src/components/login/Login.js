@@ -25,28 +25,18 @@ class Login extends Component {
           <Form className="form">
             <FormGroup>
               <Label>Username</Label>
-              <Input
-                type="text"
-                name="username"
-                id="username"
-                placeholder="username"
-              />
+              <Input type="text" name="username" id="username" />
             </FormGroup>
             <FormGroup>
               <Label for="password">Password</Label>
-              <Input
-                type="password"
-                name="password"
-                id="password"
-                placeholder="********"
-              />
+              <Input type="password" name="password" id="password" />
             </FormGroup>
-
             <br />
-
-            <Button size="lg" color="dark" block>
-              Submit
-            </Button>
+            <FormGroup className="text-center">
+              <Button size="lg" color="warning" style={{ width: "20rem" }}>
+                Login
+              </Button>
+            </FormGroup>
           </Form>
         </Jumbotron>
       </Container>

@@ -12,7 +12,7 @@ import {
 } from "reactstrap";
 import { connect } from "react-redux";
 import { getItems } from "../../actions/itemActions";
-import { getOrder } from "../../actions/orderActions";
+import { getOrder, updateQuantity } from "../../actions/orderActions";
 import ItemsList from "./ItemsList";
 import DeleteItemButton from "../common/DeleteItemButton";
 import ItemSelectBox from "../common/ItemSelectBox";
@@ -26,10 +26,8 @@ class OrderModal extends Component {
     this.state = {
       modal: this.props.modal,
       selectedItem: "1",
-      unitPrice: 0,
-      unitPricePerItem: 0,
-      selectedUnitPrice: 0,
-      tot: 0
+      changedQty: 0,
+      changedRow: 0
     };
   }
 
@@ -48,14 +46,24 @@ class OrderModal extends Component {
     e.preventDefault();
   };
 
-  // onChangeQty = e => {
-  //   this.setState({
-  //     unitPricePerItem: this.totalPriceForItem(
-  //       this.state.unitPrice,
-  //       e.target.value
-  //     )
-  //   });
-  // };
+  onChangeQty = (row, qty) => {
+    // this.props.dispatch(setCurrentOrderSuccess(order));
+
+    // this.props.dispatch()
+
+    // this.setState({ changedQty: qty, changedRow: row });
+
+    const indexOfChangedQty = this.props.orderItems.findIndex(
+      item => item["item_id"] == row
+    );
+
+    this.props.updateQuantity(indexOfChangedQty, qty);
+
+    // console.log("myy", indexOfChangedQty, qty, row);
+    // this.setState(() => ({
+    //   items: update(this.state.items, { [index]: { quantity: { $set: quantity } } })
+    // }));
+  };
 
   onItemChange = e => {
     this.setState({ selectedItem: e.target.value });
@@ -93,13 +101,13 @@ class OrderModal extends Component {
                 </thead>
                 <tbody>
                   <ItemsList
+                    row={this.state.changedRow}
                     orderNo={this.props.orderNo}
                     orderItems={this.props.orderItems}
                     items={this.props.items}
                     selectedItem={this.state.selectedItem}
                     onChangeQty={this.onChangeQty}
                     passUnitPrice={this.passUnitPrice}
-                    unitPricePerItem={this.state.unitPricePerItem}
                   />
 
                   <tr className="new-row">
@@ -114,7 +122,6 @@ class OrderModal extends Component {
                     <td>
                       <UnitPriceField
                         items={this.props.items}
-                        selectedItem={this.state.selectedItem}
                         passUnitPrice={this.passUnitPrice}
                         currentItem={this.state.selectedItem}
                       />
@@ -122,7 +129,7 @@ class OrderModal extends Component {
                     <td>
                       <QuantityField qty={1} onChangeQty={this.onChangeQty} />
                     </td>
-                    <td>{this.state.unitPricePerItem}</td>
+                    <td>Rs. </td>
                     <td>
                       <Button className="remove-btn" color="success" outline>
                         &#x2b;
@@ -131,19 +138,19 @@ class OrderModal extends Component {
                   </tr>
                 </tbody>
               </Table>
-              <hr />
               <div className="text-center">
                 <BillAmount totalAmount={this.totalPriceForOrder()} />
               </div>
-              <Button
-                className="float-right"
-                color="primary"
-                size="lg"
-                style={{ marginTop: "2rem", width: "10vw" }}
-                onClick={this.toggle}
-              >
-                Save
-              </Button>
+              <div className="text-center">
+                <Button
+                  color="primary"
+                  size="lg"
+                  style={{ marginTop: "2rem", width: "14rem" }}
+                  onClick={this.toggle}
+                >
+                  Update
+                </Button>
+              </div>
             </Form>
           </ModalBody>
         </Modal>
@@ -159,5 +166,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getItems, getOrder }
+  { getItems, getOrder, updateQuantity }
 )(OrderModal);

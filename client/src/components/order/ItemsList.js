@@ -5,22 +5,9 @@ import DeleteItemButton from "../common/DeleteItemButton";
 import ItemSelectBox from "../common/ItemSelectBox";
 import UnitPriceField from "../common/UnitPriceField";
 import QuantityField from "../common/QuantityField";
+import TotalPriceForItem from "../common/TotalPriceForItem";
 
 class ItemsList extends Component {
-  // state = {
-  //   orderAmount: 0
-  // };
-
-  // calculateTotalAmountForItem = (unitPrice, qty) => {
-  //   let tot = unitPrice * qty;
-  //   // this.setState({ orderAmount: (this.state.orderAmount += tot) });
-  //   return tot;
-  // };
-
-  // componentDidMount() {
-  //   this.props.getOrder(this.props.orderNo);
-  // }
-
   render() {
     return this.props.orderItems.map(({ item_id, qty, unit_price }) => (
       <tr key={item_id}>
@@ -31,21 +18,41 @@ class ItemsList extends Component {
           <ItemSelectBox items={this.props.items} currentItem={item_id} />
         </td>
         <td>
-          <UnitPriceField
-            items={this.props.items}
-            passUnitPrice={this.props.passUnitPrice}
-            currentItem={item_id}
+          <UnitPriceField items={this.props.items} currentItem={item_id} />
+        </td>
+        <td>
+          <QuantityField
+            qty={qty}
+            onChangeQty={this.props.onChangeQty}
+            row={item_id}
           />
         </td>
         <td>
-          <QuantityField qty={qty} onChangeQty={this.props.onChangeQty} />
+          <TotalPriceForItem
+            items={this.props.items}
+            unitPrice={unit_price}
+            qty={qty}
+            row={item_id}
+          />
         </td>
-        <td>Rs. {unit_price * qty}</td>
         <td />
       </tr>
     ));
   }
 }
+// state = {
+//   orderAmount: 0
+// };
+
+// calculateTotalAmountForItem = (unitPrice, qty) => {
+//   let tot = unitPrice * qty;
+//   // this.setState({ orderAmount: (this.state.orderAmount += tot) });
+//   return tot;
+// };
+
+// componentDidMount() {
+//   this.props.getOrder(this.props.orderNo);
+// }
 
 // const mapStateToProps = state => ({
 //   orderItems: state.order.orderItems

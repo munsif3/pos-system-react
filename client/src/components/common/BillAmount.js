@@ -7,7 +7,7 @@ class BillAmount extends Component {
     return (
       <FormGroup>
         <Label>
-          <h3>Rs. {this.props.totalAmount}</h3>
+          <h3>Rs. {this.props.totalAmount}.00</h3>
         </Label>
       </FormGroup>
     );
