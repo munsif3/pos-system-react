@@ -26,32 +26,41 @@ class Orders extends Component {
               <h1>Pending Orders</h1>
             </Col>
           </Row>
-          <ListGroup>
-            <TransitionGroup>
-              <OrderListItem openModal={this.openModal} />
-            </TransitionGroup>
-          </ListGroup>
-          <OrderModal
-            isNew={this.state.isNew}
-            orderNo={this.state.orderNo}
-            toggleModalState={this.toggleModalState}
-            modal={this.state.modal}
-          />
-          <Button
-            className="float-right"
-            color="primary"
-            size="lg"
-            style={{
-              marginTop: "2rem",
-              paddingLeft: "3rem",
-              paddingRight: "3rem",
-              paddingBottom: "1rem",
-              paddingTop: "1rem"
-            }}
-            onClick={() => this.openModal(0)}
-          >
-            &#43;&nbsp; New
-          </Button>
+
+          <Row>
+            <Col>
+              <OrderModal
+                isNew={this.state.isNew}
+                orderNo={this.state.orderNo}
+                toggleModalState={this.toggleModalState}
+                modal={this.state.modal}
+              />
+              <Button
+                className="float-right"
+                color="primary"
+                size="lg"
+                style={{
+                  marginBottom: "2rem",
+                  paddingLeft: "3rem",
+                  paddingRight: "3rem",
+                  paddingBottom: "1rem",
+                  paddingTop: "1rem"
+                }}
+                onClick={() => this.openModal(0)}
+              >
+                &#43;&nbsp; New
+              </Button>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <ListGroup>
+                <TransitionGroup>
+                  <OrderListItem openModal={this.openModal} />
+                </TransitionGroup>
+              </ListGroup>
+            </Col>
+          </Row>
         </Container>
       </div>
     );

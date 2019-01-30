@@ -81,6 +81,8 @@ class OrderModal extends Component {
     e.preventDefault();
   };
 
+  doNothing = () => {};
+
   componentDidMount() {
     this.props.getItems();
   }
@@ -99,7 +101,9 @@ class OrderModal extends Component {
           isOpen={this.props.modal}
           toggle={this.toggle}
           onClosed={
-            this.props.orderNo !== 0 ? () => this.onUpdateOrder(false) : null
+            this.props.orderNo !== 0
+              ? () => this.onUpdateOrder(false)
+              : this.doNothing()
           }
         >
           <ModalHeader toggle={this.toggle}>

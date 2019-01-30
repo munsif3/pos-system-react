@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ListGroupItem, Row, Col } from "reactstrap";
+import { ListGroupItem, Row, Col, Badge } from "reactstrap";
 import { CSSTransition } from "react-transition-group";
 import { connect } from "react-redux";
 import { getOrders } from "../../actions/orderActions";
@@ -29,12 +29,21 @@ class OrderListItem extends Component {
             >
               <Row style={{ margin: "1rem" }}>
                 <Col>
-                  <h4>Order #{order_no}</h4>
-                  <small>{this.formatDate(created_at)}</small>
+                  <h2>
+                    <Badge color="warning">Order #{order_no}</Badge>
+                  </h2>
                 </Col>
                 <Col>
-                  <h4 className="float-right">Rs. {total_price}</h4>
+                  <h3 className="float-right">Rs. {total_price}</h3>
                 </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <small style={{ marginLeft: "2rem" }}>
+                    <b>{this.formatDate(created_at)}</b>
+                  </small>
+                </Col>
+                <Col />
               </Row>
             </ListGroupItem>
           </CSSTransition>

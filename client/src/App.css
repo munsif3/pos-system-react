@@ -1,6 +1,19 @@
 body {
   background-color: #f7f7f7;
+  font-family: "Open Sans", sans-serif;
 }
+
+ul.list-group {
+  font-family: "Raleway", sans-serif;
+}
+ul.list-group h2 {
+  font-family: "Montserrat", sans-serif;
+}
+
+table {
+  font-family: "Open Sans", sans-serif;
+}
+
 .new-row {
   background-color: #f4fff6;
 }
