@@ -19,50 +19,47 @@ class Orders extends Component {
 
   render() {
     return (
-      <div>
-        <Container>
-          <Row style={{ marginBottom: "5rem" }}>
-            <Col style={{ textAlign: "center" }}>
-              <h1>Pending Orders</h1>
-            </Col>
-          </Row>
-
-          <Row>
-            <Col>
-              <OrderModal
-                isNew={this.state.isNew}
-                orderNo={this.state.orderNo}
-                toggleModalState={this.toggleModalState}
-                modal={this.state.modal}
-              />
-              <Button
-                className="float-right"
-                color="primary"
-                size="lg"
-                style={{
-                  marginBottom: "2rem",
-                  paddingLeft: "3rem",
-                  paddingRight: "3rem",
-                  paddingBottom: "1rem",
-                  paddingTop: "1rem"
-                }}
-                onClick={() => this.openModal(0)}
-              >
-                &#43;&nbsp; New
-              </Button>
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <ListGroup>
-                <TransitionGroup>
-                  <OrderListItem openModal={this.openModal} />
-                </TransitionGroup>
-              </ListGroup>
-            </Col>
-          </Row>
-        </Container>
-      </div>
+      <Container>
+        <Row style={{ marginBottom: "5rem" }}>
+          <Col style={{ textAlign: "center" }}>
+            <h1>Pending Orders</h1>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <OrderModal
+              isNew={this.state.isNew}
+              orderNo={this.state.orderNo}
+              toggleModalState={this.toggleModalState}
+              modal={this.state.modal}
+            />
+            <Button
+              className="float-right"
+              color="success"
+              size="lg"
+              style={{
+                marginBottom: "2rem",
+                paddingLeft: "3rem",
+                paddingRight: "3rem",
+                paddingBottom: "1rem",
+                paddingTop: "1rem"
+              }}
+              onClick={() => this.openModal(0)}
+            >
+              &#43;&nbsp; New
+            </Button>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <ListGroup>
+              <TransitionGroup>
+                <OrderListItem openModal={this.openModal} />
+              </TransitionGroup>
+            </ListGroup>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }

@@ -6,8 +6,7 @@ import {
   UPDATE_ITEM_COUNT_FROM_ORDER,
   DELETE_ITEM_FROM_ORDER,
   ADD_ITEM_TO_ORDER,
-  UPDATE_ORDER,
-  UPDATE_ORDER_TOTAL
+  UPDATE_ORDER
 } from "./types";
 import store from "../store";
 
@@ -41,8 +40,8 @@ export const updateQuantity = (id, newQty) => dispatch => {
   dispatch({
     type: UPDATE_ITEM_COUNT_FROM_ORDER,
     payload: {
-      id: id,
-      newQty: newQty
+      id: Number(id),
+      newQty: Number(newQty)
     }
   });
 };
@@ -59,8 +58,10 @@ export const addItemToOrder = (itemId, qty) => dispatch => {
     type: ADD_ITEM_TO_ORDER,
     payload: {
       items: store.getState().item,
-      itemId: itemId,
-      qty: qty
+      newItem: {
+        item_id: Number(itemId),
+        qty: Number(qty)
+      }
     }
   });
 };

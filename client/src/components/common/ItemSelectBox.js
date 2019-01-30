@@ -7,7 +7,7 @@ class ItemSelectBox extends Component {
       <FormGroup>
         {this.props.currentItem ? (
           this.props.items
-            .filter(item => item["item_id"] == this.props.currentItem)
+            .filter(item => item["item_id"] === Number(this.props.currentItem))
             .map(({ item_id, name }) => (
               <Label key={item_id} value={item_id}>
                 {name}

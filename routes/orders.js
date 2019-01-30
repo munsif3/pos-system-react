@@ -30,11 +30,10 @@ router.post("/", (req, res) => {
     .replace("T", " ");
 
   database
-    .query("INSERT INTO orders (is_open,total_price,created_at) VALUES (?,?)", [
-      1,
-      0.0,
-      timestamp
-    ])
+    .query(
+      "INSERT INTO orders (is_open,total_price,created_at) VALUES (?,?,?)",
+      [1, 0.0, timestamp]
+    )
     .then(data => res.status(201).json(data.insertId))
     .catch(err =>
       res.status(500).send({

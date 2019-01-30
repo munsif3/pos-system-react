@@ -7,7 +7,6 @@ import {
   FormGroup,
   Label,
   Input,
-  Jumbotron,
   Button
 } from "reactstrap";
 
@@ -21,24 +20,33 @@ class Login extends Component {
             <h1>Sign In</h1>
           </Col>
         </Row>
-        <Jumbotron>
-          <Form className="form">
-            <FormGroup>
-              <Label>Username</Label>
-              <Input type="text" name="username" id="username" />
-            </FormGroup>
-            <FormGroup>
-              <Label for="password">Password</Label>
-              <Input type="password" name="password" id="password" />
-            </FormGroup>
-            <br />
-            <FormGroup className="text-center">
-              <Button size="lg" color="warning" style={{ width: "20rem" }}>
-                Login
-              </Button>
-            </FormGroup>
-          </Form>
-        </Jumbotron>
+        <Row>
+          <Col sm="12" md={{ size: 6, offset: 3 }}>
+            <Form
+              className="form login"
+              style={{
+                border: "1px solid ",
+                borderRadius: "10px",
+                padding: "3rem"
+              }}
+            >
+              <FormGroup>
+                <Label>Username</Label>
+                <Input type="text" name="username" id="username" />
+              </FormGroup>
+              <FormGroup>
+                <Label for="password">Password</Label>
+                <Input type="password" name="password" id="password" />
+              </FormGroup>
+              <br />
+              <FormGroup className="text-center">
+                <Button size="lg" color="warning" style={{ width: "20rem" }}>
+                  Login
+                </Button>
+              </FormGroup>
+            </Form>
+          </Col>
+        </Row>
       </Container>
     );
   }

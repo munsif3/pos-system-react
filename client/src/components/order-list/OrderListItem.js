@@ -21,7 +21,7 @@ class OrderListItem extends Component {
     return (
       <div>
         {this.props.orders.map(({ order_no, total_price, created_at }) => (
-          <CSSTransition key={order_no} timeout={600} classNames="fade">
+          <CSSTransition key={order_no} timeout={500} classNames="fade">
             <ListGroupItem
               onClick={() => this.props.openModal(order_no)}
               tag="a"

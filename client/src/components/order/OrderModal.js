@@ -44,9 +44,9 @@ class OrderModal extends Component {
   };
 
   onChangeQty = (row, qty) => {
-    this.setState({ changedQty: qty });
+    this.setState({ changedQty: Number(qty) });
     const indexOfChangedQty = this.props.orderItems.findIndex(
-      item => item["item_id"] == row
+      item => item["item_id"] === Number(row)
     );
     this.props.updateQuantity(indexOfChangedQty, qty);
   };
@@ -97,6 +97,7 @@ class OrderModal extends Component {
     return (
       <Container>
         <Modal
+          centered
           size="lg"
           isOpen={this.props.modal}
           toggle={this.toggle}

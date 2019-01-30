@@ -51,7 +51,7 @@ export default function(state = initialState, action) {
         orderItems:
           action.payload.id !== -1
             ? state.orderItems.map((orderItem, index) =>
-                action.payload.id == index
+                action.payload.id === index
                   ? { ...orderItem, qty: action.payload.newQty }
                   : orderItem
               )
@@ -67,24 +67,20 @@ export default function(state = initialState, action) {
       };
 
     case ADD_ITEM_TO_ORDER:
-      const newItem = {
-        item_id: Number(action.payload.itemId),
-        qty: Number(action.payload.qty)
-      };
       const index = state.orderItems.findIndex(
-        element => element["item_id"] === Number(action.payload.itemId)
+        element => element["item_id"] === action.payload.itemId
       );
       let items = [];
       if (index === -1) {
         action.payload.items.items.map(({ item_id, unit_price }) =>
-          newItem.item_id === item_id
-            ? (newItem.unit_price = unit_price)
-            : newItem
+          action.payload.newItem.item_id === item_id
+            ? (action.payload.newItem.unit_price = unit_price)
+            : action.payload.newItem
         );
-        items = [...state.orderItems, newItem];
+        items = [...state.orderItems, action.payload.newItem];
       } else {
         items = [...state.orderItems];
-        items[index].qty += Number(action.payload.qty);
+        items[index].qty += action.payload.qty;
       }
 
       return {
