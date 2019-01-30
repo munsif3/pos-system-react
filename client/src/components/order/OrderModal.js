@@ -14,7 +14,8 @@ import {
   updateQuantity,
   deleteItemFromOrder,
   addItemToOrder,
-  updateOrder
+  updateOrder,
+  addNewOrder
 } from "../../actions/orderActions";
 import { getItems } from "../../actions/itemActions";
 import ItemsList from "./ItemsList";
@@ -64,6 +65,11 @@ class OrderModal extends Component {
 
   onUpdateOrder = () => {
     this.props.updateOrder(this.props.orderItems, this.props.orderNo);
+    this.toggle();
+  };
+
+  onSaveNewOrder = () => {
+    this.props.addNewOrder(this.props.orderItems);
     this.toggle();
   };
 
@@ -133,9 +139,13 @@ class OrderModal extends Component {
                   color="primary"
                   size="lg"
                   style={{ marginTop: "2rem", width: "14rem" }}
-                  onClick={this.onUpdateOrder}
+                  onClick={
+                    this.props.orderNo === 0
+                      ? this.onSaveNewOrder
+                      : this.onUpdateOrder
+                  }
                 >
-                  Update
+                  {this.props.orderNo === 0 ? "Save" : "Update"}
                 </Button>
               </div>
             </Form>
@@ -159,6 +169,7 @@ export default connect(
     updateQuantity,
     deleteItemFromOrder,
     addItemToOrder,
-    updateOrder
+    updateOrder,
+    addNewOrder
   }
 )(OrderModal);

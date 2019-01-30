@@ -7,7 +7,6 @@ import { getOrders } from "../../actions/orderActions";
 class OrderListItem extends Component {
   state = {
     modal: false
-    // isNew: false
   };
 
   componentDidMount() {
@@ -17,14 +16,6 @@ class OrderListItem extends Component {
   formatDate = date => {
     return date.slice(0, 19).replace("T", " ");
   };
-
-  // openModal = orderNo => {
-  //   this.setState({ modal: !this.state.modal, orderNo: orderNo });
-  // };
-
-  // toggleModalState = () => {
-  //   this.setState({ modal: !this.state.modal });
-  // };
 
   render() {
     return (

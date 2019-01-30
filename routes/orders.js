@@ -24,7 +24,6 @@ router.get("/", (req, res) => {
  * @access  Public
  */
 router.post("/", (req, res) => {
-  const isOpen = req.body.isOpen;
   const timestamp = new Date()
     .toISOString()
     .slice(0, 19)
@@ -32,7 +31,7 @@ router.post("/", (req, res) => {
 
   database
     .query("INSERT INTO orders (is_open, created_at) VALUES (?,?)", [
-      isOpen,
+      1,
       timestamp
     ])
     .then(data => res.status(201).json(data.insertId))

@@ -7,8 +7,6 @@ import OrderModal from "../order/OrderModal";
 class Orders extends Component {
   state = {
     modal: false
-    // isNew: true,
-    // orderNo: 0
   };
 
   toggleModalState = () => {

@@ -82,16 +82,15 @@ export const addNewOrder = order => dispatch => {
   dispatch(setItemsLoading());
   axios
     .post("api/v1/orders")
-    .then(res => {
-      console.log("orderid", res.data);
+    .then(orderId => {
       return axios
-        .put(`api/v1/order-details/${res.data}`, order)
+        .put(`api/v1/order-details/${orderId.data}`, order)
         .then(res => {
-          console.log("res", res);
-          dispatch({
-            type: ADD_ORDER,
-            payload: res.data
-          });
+          dispatch(getOrders());
+          // dispatch({
+          //   type: ADD_ORDER,
+          //   payload: res.data
+          // });
         })
         .catch(err => console.log(err));
     })
