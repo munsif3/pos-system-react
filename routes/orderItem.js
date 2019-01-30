@@ -21,42 +21,13 @@ router.get("/:id", (req, res) => {
 });
 
 /**
- * @route   POST api/v1/order-details
- * @desc    Add items to a new order, id from last inserted order
- * @access  Public
- */
-router.post("/", (req, res) => {
-  const orderNo = req.body.orderNo;
-  const items = req.body.items;
-  let sql = "INSERT INTO order_item_detail (order_no,item_id,qty) VALUES ";
-  items.forEach(element => {
-    let x = util.format(
-      "('%d','%d','%d'), ",
-      orderNo,
-      element.itemId,
-      element.qty
-    );
-    sql += x;
-  });
-  sql = sql.slice(0, -2);
-
-  database
-    .query(sql)
-    .then(data => res.status(201).json(data))
-    .catch(err => res.status(500).send({ error: err }));
-});
-
-/**
- * @route   PUT api/v1/order-details
+ * @route   PUT api/v1/order-details/id
  * @desc    Add items to an existing order or update the quantity
  * @access  Public
  */
 router.put("/:id", (req, res) => {
   const orderNo = req.params.id;
   const items = req.body;
-  console.log("req.params.id", req.params.id);
-  console.log("req.body", req.body);
-
   let sql = "INSERT INTO order_item_detail (order_no,item_id, qty) VALUES ";
   items.forEach(element => {
     let x = util.format(
@@ -68,9 +39,7 @@ router.put("/:id", (req, res) => {
     sql += x;
   });
   sql = sql.slice(0, -2);
-  sql += " ON DUPLICATE KEY UPDATE qty=VALUES(qty);";
-
-  console.log("sql", sql);
+  sql += " ON DUPLICATE KEY UPDATE qty = VALUES (qty);";
 
   database
     .query(sql)
@@ -79,3 +48,29 @@ router.put("/:id", (req, res) => {
 });
 
 module.exports = router;
+
+// /**
+//  * @route   POST api/v1/order-details
+//  * @desc    Add items to a new order, id from last inserted order
+//  * @access  Public
+//  */
+// router.post("/", (req, res) => {
+//   const orderNo = req.body.orderNo;
+//   const items = req.body.items;
+//   let sql = "INSERT INTO order_item_detail (order_no,item_id,qty) VALUES ";
+//   items.forEach(element => {
+//     let x = util.format(
+//       "('%d','%d','%d'), ",
+//       orderNo,
+//       element.itemId,
+//       element.qty
+//     );
+//     sql += x;
+//   });
+//   sql = sql.slice(0, -2);
+
+//   database
+//     .query(sql)
+//     .then(data => res.status(201).json(data))
+//     .catch(err => res.status(500).send({ error: err }));
+// });

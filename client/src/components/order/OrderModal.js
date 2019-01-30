@@ -86,7 +86,9 @@ class OrderModal extends Component {
       <Container>
         <Modal size="lg" isOpen={this.props.modal} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}>
-            Order #{this.props.orderNo}
+            {this.props.orderNo === 0
+              ? "Add New Order"
+              : "Order #" + this.props.orderNo}
           </ModalHeader>
           <ModalBody>
             <Form onSubmit={this.onSubmit}>

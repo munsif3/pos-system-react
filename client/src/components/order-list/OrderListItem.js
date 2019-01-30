@@ -3,12 +3,11 @@ import { ListGroupItem, Row, Col } from "reactstrap";
 import { CSSTransition } from "react-transition-group";
 import { connect } from "react-redux";
 import { getOrders } from "../../actions/orderActions";
-import OrderModal from "../order/OrderModal";
 
 class OrderListItem extends Component {
   state = {
-    modal: false,
-    orderNo: 0
+    modal: false
+    // isNew: false
   };
 
   componentDidMount() {
@@ -19,13 +18,13 @@ class OrderListItem extends Component {
     return date.slice(0, 19).replace("T", " ");
   };
 
-  openModal = orderNo => {
-    this.setState({ modal: !this.state.modal, orderNo: orderNo });
-  };
+  // openModal = orderNo => {
+  //   this.setState({ modal: !this.state.modal, orderNo: orderNo });
+  // };
 
-  toggleModalState = () => {
-    this.setState({ modal: !this.state.modal });
-  };
+  // toggleModalState = () => {
+  //   this.setState({ modal: !this.state.modal });
+  // };
 
   render() {
     return (
@@ -33,7 +32,7 @@ class OrderListItem extends Component {
         {this.props.orders.map(({ order_no, total_price, created_at }) => (
           <CSSTransition key={order_no} timeout={600} classNames="fade">
             <ListGroupItem
-              onClick={() => this.openModal(order_no)}
+              onClick={() => this.props.openModal(order_no)}
               tag="a"
               action
             >
@@ -49,11 +48,6 @@ class OrderListItem extends Component {
             </ListGroupItem>
           </CSSTransition>
         ))}
-        <OrderModal
-          toggleModalState={this.toggleModalState}
-          orderNo={this.state.orderNo}
-          modal={this.state.modal}
-        />
       </div>
     );
   }
