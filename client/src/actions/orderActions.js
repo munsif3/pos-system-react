@@ -3,10 +3,12 @@ import {
   GET_ORDER,
   GET_ORDER_LIST,
   ITEMS_LOADING,
-  UPDATE_QTY,
+  UPDATE_ITEM_COUNT_FROM_ORDER,
   DELETE_ITEM_FROM_ORDER,
-  ADD_ITEM_TO_ORDER
+  ADD_ITEM_TO_ORDER,
+  UPDATE_ORDER
 } from "./types";
+import store from "../store";
 
 export const getOrders = () => dispatch => {
   dispatch(setItemsLoading());
@@ -30,7 +32,7 @@ export const getOrder = id => dispatch => {
 
 export const updateQuantity = (id, newQty) => dispatch => {
   dispatch({
-    type: UPDATE_QTY,
+    type: UPDATE_ITEM_COUNT_FROM_ORDER,
     payload: {
       id: id,
       newQty: newQty
@@ -49,9 +51,17 @@ export const addItemToOrder = (itemId, qty) => dispatch => {
   dispatch({
     type: ADD_ITEM_TO_ORDER,
     payload: {
+      items: store.getState().item,
       itemId: itemId,
       qty: qty
     }
+  });
+};
+
+export const updateOrder = order => dispatch => {
+  dispatch({
+    type: UPDATE_ORDER,
+    payload: order
   });
 };
 

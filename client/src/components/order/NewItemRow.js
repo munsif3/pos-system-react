@@ -19,14 +19,16 @@ class NewItemRow extends Component {
         <td>
           <UnitPriceField
             items={this.props.items}
-            passUnitPrice={this.props.passUnitPrice}
             currentItem={this.props.selectedItem}
           />
         </td>
         <td>
-          <QuantityField qty={1} onChangeQty={this.props.onChangeQty} />
+          <QuantityField
+            qty={this.props.changedQty}
+            onChangeQty={this.props.onChangeQty}
+          />
         </td>
-        <td>Rs. Price</td>
+        <td />
         <td>
           <Button
             color="success"

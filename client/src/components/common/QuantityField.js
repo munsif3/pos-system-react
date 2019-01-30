@@ -6,11 +6,9 @@ class QuantityField extends Component {
     return (
       <Input
         type="number"
-        name="qty"
-        id="qty"
-        defaultValue={this.props.qty}
+        value={this.props.qty}
         onChange={e => this.props.onChangeQty(this.props.row, e.target.value)}
-        style={{ width: "10vw" }}
+        style={{ width: "5rem" }}
       />
     );
   }

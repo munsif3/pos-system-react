@@ -19,7 +19,7 @@ router.get("/:id", (req, res) => {
 });
 
 // @route   POST api/v1/order-details
-// @desc    Add items to an order, id from last inserted order
+// @desc    Add items to a new order, id from last inserted order
 // @access  Public
 router.post("/", (req, res) => {
   const orderNo = req.body.orderNo;
@@ -39,6 +39,31 @@ router.post("/", (req, res) => {
   database
     .query(sql)
     .then(data => res.status(201).json(data))
+    .catch(err => res.status(500).send({ error: err }));
+});
+
+// @route   PUT api/v1/order-details
+// @desc    Add items to an existing order or update the quantity
+// @access  Public
+router.put("/:id", (req, res) => {
+  const orderNo = req.body.orderNo;
+  const items = req.body.items;
+  let sql = "INSERT INTO order_item_detail (order_no,item_id, qty) VALUES ";
+  items.forEach(element => {
+    let x = util.format(
+      "('%d','%d','%d'), ",
+      orderNo,
+      element.itemId,
+      element.qty
+    );
+    sql += x;
+  });
+  sql = sql.slice(0, -2);
+  sql += " ON DUPLICATE KEY qty UPDATE qty=VALUES(qty);";
+
+  database
+    .query(sql)
+    .then(data => res.status(204).json(data))
     .catch(err => res.status(500).send({ error: err }));
 });
 

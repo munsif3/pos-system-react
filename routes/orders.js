@@ -9,7 +9,11 @@ router.get("/", (req, res) => {
   database
     .query("SELECT * FROM orders WHERE is_open = true ORDER BY created_at DESC")
     .then(data => res.status(200).json(data))
-    .catch(err => res.status(500).send({ error: err }));
+    .catch(err =>
+      res.status(500).send({
+        error: err
+      })
+    );
 });
 
 // @route   POST api/v1/orders
@@ -28,7 +32,11 @@ router.post("/", (req, res) => {
       timestamp
     ])
     .then(data => res.status(201).json(data.insertId))
-    .catch(err => res.status(500).send({ error: err }));
+    .catch(err =>
+      res.status(500).send({
+        error: err
+      })
+    );
 });
 
 // @route   GET api/v1/orders/:id

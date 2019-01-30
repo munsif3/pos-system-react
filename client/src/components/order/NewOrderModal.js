@@ -13,38 +13,72 @@ import {
 } from "reactstrap";
 import { connect } from "react-redux";
 import { getItems } from "../../actions/itemActions";
+import {
+  updateQuantity,
+  deleteItemFromOrder,
+  addItemToOrder
+} from "../../actions/orderActions";
+import NewItemRow from "../order/NewItemRow";
+import BillAmount from "../common/BillAmount";
 
-class OrderModal extends Component {
+class NewOrderModal extends Component {
   state = {
-    modal: this.props.modal
+    modal: false,
+    selectedItem: 1,
+    changedQty: 0
+  };
+
+  toggle = () => {
+    this.setState({ modal: !this.state.modal });
+  };
+
+  totalPriceForOrder = () => {
+    return 5200;
+  };
+
+  onChangeQty = (row, qty) => {
+    this.setState({ changedQty: qty });
+    // const indexOfChangedQty = this.props.orderItems.findIndex(
+    //   item => item["item_id"] == row
+    // );
+    // this.props.updateQuantity(indexOfChangedQty, qty);
+  };
+
+  onItemDelete = id => {
+    this.props.deleteItemFromOrder(id);
+  };
+
+  onItemAdd = (itemId, qty) => {
+    this.props.addItemToOrder(itemId, qty);
+  };
+
+  onItemChange = e => {
+    this.setState({ selectedItem: e.target.value });
   };
 
   componentDidMount() {
     this.props.getItems();
   }
 
-  toggle = () => {
-    this.setState({ modal: !this.state.modal });
-  };
-
   render() {
-    const items = this.props.items.map(({ item_id, name, unit_price }) => (
-      <option key={item_id}>{name}</option>
-    ));
-
     return (
       <Container>
         <Button
           className="float-right"
           color="primary"
           size="lg"
-          style={{ marginBottom: "2rem" }}
+          style={{
+            marginTop: "2rem",
+            paddingLeft: "3rem",
+            paddingRight: "3rem",
+            paddingBottom: "1rem",
+            paddingTop: "1rem"
+          }}
           onClick={this.toggle}
         >
-          New &nbsp; &#43;
+          &#43;&nbsp; New
         </Button>
-
-        <Modal size="lg" isOpen={this.state.modal}>
+        <Modal size="lg" isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}>Add New Order</ModalHeader>
           <ModalBody>
             <Form onSubmit={this.onSubmit}>
@@ -56,51 +90,34 @@ class OrderModal extends Component {
                     <th>Unit Price</th>
                     <th>Qty</th>
                     <th>Rs.</th>
+                    <th />
                   </tr>
                 </thead>
-
                 <tbody>
-                  <tr>
-                    <td>
-                      <FormGroup>
-                        <Input type="select" name="select" id="itemSelect">
-                          {items}
-                        </Input>
-                      </FormGroup>
-                    </td>
-                    <td>15.00</td>
-                    <td>
-                      <Input
-                        type="number"
-                        name="qty"
-                        id="qty"
-                        style={{ width: "6vw" }}
-                      />
-                    </td>
-                    <td>30.00</td>
-                  </tr>
-
-                  <tr>
-                    <td />
-                    <td />
-                    <td />
-                    <td />
-                    <td>
-                      <FormGroup>
-                        <Label size="lg"> 50.00</Label>
-                      </FormGroup>
-                    </td>
-                  </tr>
+                  <NewItemRow
+                    items={this.props.items}
+                    onChange={this.onItemChange}
+                    selectedItem={this.state.selectedItem}
+                    currentItem={this.state.selectedItem}
+                    onChangeQty={this.onChangeQty}
+                    changedQty={this.state.changedQty}
+                    onItemAdd={this.onItemAdd}
+                  />
                 </tbody>
               </Table>
-              <Button
-                className="float-right"
-                color="primary"
-                size="lg"
-                style={{ marginTop: "2rem", width: "10vw" }}
-              >
-                Save
-              </Button>
+              <div className="text-center">
+                <BillAmount totalAmount={this.totalPriceForOrder()} />
+              </div>
+              <div className="text-center">
+                <Button
+                  color="primary"
+                  size="lg"
+                  style={{ marginTop: "2rem", width: "14rem" }}
+                  onClick={this.toggle}
+                >
+                  Save
+                </Button>
+              </div>
             </Form>
           </ModalBody>
         </Modal>
@@ -115,5 +132,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getItems }
-)(OrderModal);
+  { getItems, updateQuantity, deleteItemFromOrder, addItemToOrder }
+)(NewOrderModal);

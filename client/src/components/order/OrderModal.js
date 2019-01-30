@@ -36,7 +36,6 @@ class OrderModal extends Component {
   };
 
   totalPriceForOrder = () => {
-    console.log("this.props.orderItems", this.props.orderItems);
     return this.props.orderItems.reduce((accumulator, currentValue) => {
       return accumulator + currentValue.unit_price * currentValue.qty;
     }, 0);
@@ -103,7 +102,6 @@ class OrderModal extends Component {
                     items={this.props.items}
                     selectedItem={this.state.selectedItem}
                     onChangeQty={this.onChangeQty}
-                    passUnitPrice={this.passUnitPrice}
                     onDelete={this.onItemDelete}
                   />
 
@@ -111,11 +109,11 @@ class OrderModal extends Component {
                     items={this.props.items}
                     onChange={this.onItemChange}
                     selectedItem={this.state.selectedItem}
-                    passUnitPrice={this.passUnitPrice}
                     currentItem={this.state.selectedItem}
                     onChangeQty={this.onChangeQty}
                     changedQty={this.state.changedQty}
                     onItemAdd={this.onItemAdd}
+                    isNew={false}
                   />
                 </tbody>
               </Table>
