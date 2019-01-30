@@ -7,7 +7,7 @@ import {
   DELETE_ITEM_FROM_ORDER,
   ADD_ITEM_TO_ORDER,
   UPDATE_ORDER,
-  ADD_ORDER
+  UPDATE_ORDER_TOTAL
 } from "./types";
 import store from "../store";
 
@@ -65,7 +65,7 @@ export const addItemToOrder = (itemId, qty) => dispatch => {
   });
 };
 
-export const updateOrder = (order, orderId) => dispatch => {
+export const updateOrder = (order, orderId, total) => dispatch => {
   dispatch(setItemsLoading());
   axios
     .put(`api/v1/order-details/${orderId}`, order)
@@ -74,27 +74,33 @@ export const updateOrder = (order, orderId) => dispatch => {
         type: UPDATE_ORDER,
         payload: res.data
       });
+      dispatch(updateOrderTotal(orderId, total));
     })
-    .catch(err => console.log(err));
+    .catch(err => console.error(err));
 };
 
 export const addNewOrder = order => dispatch => {
   dispatch(setItemsLoading());
   axios
     .post("api/v1/orders")
-    .then(orderId => {
-      return axios
-        .put(`api/v1/order-details/${orderId.data}`, order)
-        .then(res => {
-          dispatch(getOrders());
-          // dispatch({
-          //   type: ADD_ORDER,
-          //   payload: res.data
-          // });
-        })
-        .catch(err => console.log(err));
+    .then(async orderId => {
+      try {
+        await axios.put(`api/v1/order-details/${orderId.data}`, order);
+        dispatch(getOrders());
+      } catch (err) {
+        return console.log(err);
+      }
     })
-    .catch(err => console.log(err));
+    .catch(err => console.error(err));
+};
+
+export const updateOrderTotal = (orderId, total) => dispatch => {
+  axios
+    .put(`api/v1/orders/${orderId}`, { total: total })
+    .then(res => {
+      dispatch(getOrders());
+    })
+    .catch(err => console.error(err));
 };
 
 export const setItemsLoading = () => {

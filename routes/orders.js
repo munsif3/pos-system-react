@@ -30,8 +30,9 @@ router.post("/", (req, res) => {
     .replace("T", " ");
 
   database
-    .query("INSERT INTO orders (is_open, created_at) VALUES (?,?)", [
+    .query("INSERT INTO orders (is_open,total_price,created_at) VALUES (?,?)", [
       1,
+      0.0,
       timestamp
     ])
     .then(data => res.status(201).json(data.insertId))
@@ -40,6 +41,16 @@ router.post("/", (req, res) => {
         error: err
       })
     );
+});
+
+router.put("/:id", (req, res) => {
+  database
+    .query("UPDATE orders SET total_price=? WHERE order_no=?", [
+      req.body.total,
+      req.params.id
+    ])
+    .then(data => res.status(204).json(data))
+    .catch(err => res.status(500).json(err));
 });
 
 // @route   GET api/v1/orders/:id

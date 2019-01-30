@@ -63,9 +63,13 @@ class OrderModal extends Component {
     this.setState({ selectedItem: e.target.value });
   };
 
-  onUpdateOrder = () => {
-    this.props.updateOrder(this.props.orderItems, this.props.orderNo);
-    this.toggle();
+  onUpdateOrder = shouldToggle => {
+    this.props.updateOrder(
+      this.props.orderItems,
+      this.props.orderNo,
+      this.totalPriceForOrder()
+    );
+    if (shouldToggle) this.toggle();
   };
 
   onSaveNewOrder = () => {
@@ -90,7 +94,14 @@ class OrderModal extends Component {
   render() {
     return (
       <Container>
-        <Modal size="lg" isOpen={this.props.modal} toggle={this.toggle}>
+        <Modal
+          size="lg"
+          isOpen={this.props.modal}
+          toggle={this.toggle}
+          onClosed={
+            this.props.orderNo !== 0 ? () => this.onUpdateOrder(false) : null
+          }
+        >
           <ModalHeader toggle={this.toggle}>
             {this.props.orderNo === 0
               ? "Add New Order"

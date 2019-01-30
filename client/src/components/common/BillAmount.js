@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { FormGroup, Label } from "reactstrap";
 
 class BillAmount extends Component {
-  state = {};
   render() {
     return (
       <FormGroup>

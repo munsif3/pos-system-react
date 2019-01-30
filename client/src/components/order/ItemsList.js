@@ -6,10 +6,6 @@ import QuantityField from "../common/QuantityField";
 import TotalPriceForItem from "../common/TotalPriceForItem";
 
 class ItemsList extends Component {
-  componentWillUnmount() {
-    // Call Update Order HTTP Call
-  }
-
   render() {
     return this.props.orderItems.map(({ item_id, qty, unit_price }) => (
       <tr key={item_id}>
