@@ -13,7 +13,8 @@ import {
   getOrder,
   updateQuantity,
   deleteItemFromOrder,
-  addItemToOrder
+  addItemToOrder,
+  updateOrder
 } from "../../actions/orderActions";
 import { getItems } from "../../actions/itemActions";
 import ItemsList from "./ItemsList";
@@ -59,6 +60,11 @@ class OrderModal extends Component {
 
   onItemChange = e => {
     this.setState({ selectedItem: e.target.value });
+  };
+
+  onUpdateOrder = () => {
+    this.props.updateOrder(this.props.orderItems, this.props.orderNo);
+    this.toggle();
   };
 
   onSubmit = e => {
@@ -125,7 +131,7 @@ class OrderModal extends Component {
                   color="primary"
                   size="lg"
                   style={{ marginTop: "2rem", width: "14rem" }}
-                  onClick={this.toggle}
+                  onClick={this.onUpdateOrder}
                 >
                   Update
                 </Button>
@@ -145,5 +151,12 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getItems, getOrder, updateQuantity, deleteItemFromOrder, addItemToOrder }
+  {
+    getItems,
+    getOrder,
+    updateQuantity,
+    deleteItemFromOrder,
+    addItemToOrder,
+    updateOrder
+  }
 )(OrderModal);

@@ -6,28 +6,35 @@ import {
   UPDATE_ITEM_COUNT_FROM_ORDER,
   DELETE_ITEM_FROM_ORDER,
   ADD_ITEM_TO_ORDER,
-  UPDATE_ORDER
+  UPDATE_ORDER,
+  ADD_ORDER
 } from "./types";
 import store from "../store";
 
 export const getOrders = () => dispatch => {
   dispatch(setItemsLoading());
-  axios.get("/api/v1/orders").then(res =>
-    dispatch({
-      type: GET_ORDER_LIST,
-      payload: res.data
-    })
-  );
+  axios
+    .get("/api/v1/orders")
+    .then(res =>
+      dispatch({
+        type: GET_ORDER_LIST,
+        payload: res.data
+      })
+    )
+    .catch(err => console.log(err));
 };
 
 export const getOrder = id => dispatch => {
   dispatch(setItemsLoading());
-  axios.get(`/api/v1/order-details/${id}`).then(res => {
-    dispatch({
-      type: GET_ORDER,
-      payload: res.data
-    });
-  });
+  axios
+    .get(`/api/v1/order-details/${id}`)
+    .then(res => {
+      dispatch({
+        type: GET_ORDER,
+        payload: res.data
+      });
+    })
+    .catch(err => console.log(err));
 };
 
 export const updateQuantity = (id, newQty) => dispatch => {
@@ -58,11 +65,37 @@ export const addItemToOrder = (itemId, qty) => dispatch => {
   });
 };
 
-export const updateOrder = order => dispatch => {
-  dispatch({
-    type: UPDATE_ORDER,
-    payload: order
-  });
+export const updateOrder = (order, orderId) => dispatch => {
+  dispatch(setItemsLoading());
+  axios
+    .put(`api/v1/order-details/${orderId}`, order)
+    .then(res => {
+      dispatch({
+        type: UPDATE_ORDER,
+        payload: res.data
+      });
+    })
+    .catch(err => console.log(err));
+};
+
+export const addNewOrder = order => dispatch => {
+  dispatch(setItemsLoading());
+  axios
+    .post("api/v1/orders")
+    .then(res => {
+      console.log("orderid", res.data);
+      return axios
+        .put(`api/v1/order-details/${res.data}`, order)
+        .then(res => {
+          console.log("res", res);
+          dispatch({
+            type: ADD_ORDER,
+            payload: res.data
+          });
+        })
+        .catch(err => console.log(err));
+    })
+    .catch(err => console.log(err));
 };
 
 export const setItemsLoading = () => {

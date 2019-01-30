@@ -2,9 +2,11 @@ const express = require("express");
 const database = require("../config/database");
 const router = express.Router();
 
-// @route   GET api/v1/items
-// @desc    Get All Items
-// @access  Public
+/**
+ * @route   GET api/v1/items
+ * @desc    Get All Items
+ * @access  Public
+ */
 router.get("/", (req, res) => {
   database
     .query("SELECT * FROM items")
@@ -12,9 +14,11 @@ router.get("/", (req, res) => {
     .catch(err => res.status(500).send({ error: err }));
 });
 
-// @route   GET api/v1/items/:id
-// @desc    Get Item by ID
-// @access  Public
+/**
+ * @route   GET api/v1/items/:id
+ * @desc    Get Item by ID
+ * @access  Public
+ */
 router.get("/:id", (req, res) => {
   database
     .query("SELECT * FROM items WHERE item_id = ?", [req.params.id])

@@ -3,9 +3,11 @@ const util = require("util");
 const database = require("../config/database");
 const router = express.Router();
 
-// @route   GET api/v1/order-details/:id
-// @desc    Get all Items for an Order
-// @access  Public
+/**
+ * @route   GET api/v1/order-details/:id
+ * @desc    Get all Items for an Order
+ * @access  Public
+ */
 router.get("/:id", (req, res) => {
   const sql = `SELECT d.order_no, d.item_id, d.qty, i.unit_price, i.name
               FROM items i, orders o, order_item_detail d
@@ -18,9 +20,11 @@ router.get("/:id", (req, res) => {
     .catch(err => res.status(500).send({ error: err }));
 });
 
-// @route   POST api/v1/order-details
-// @desc    Add items to a new order, id from last inserted order
-// @access  Public
+/**
+ * @route   POST api/v1/order-details
+ * @desc    Add items to a new order, id from last inserted order
+ * @access  Public
+ */
 router.post("/", (req, res) => {
   const orderNo = req.body.orderNo;
   const items = req.body.items;
@@ -42,29 +46,36 @@ router.post("/", (req, res) => {
     .catch(err => res.status(500).send({ error: err }));
 });
 
-// @route   PUT api/v1/order-details
-// @desc    Add items to an existing order or update the quantity
-// @access  Public
+/**
+ * @route   PUT api/v1/order-details
+ * @desc    Add items to an existing order or update the quantity
+ * @access  Public
+ */
 router.put("/:id", (req, res) => {
-  const orderNo = req.body.orderNo;
-  const items = req.body.items;
+  const orderNo = req.params.id;
+  const items = req.body;
+  console.log("req.params.id", req.params.id);
+  console.log("req.body", req.body);
+
   let sql = "INSERT INTO order_item_detail (order_no,item_id, qty) VALUES ";
   items.forEach(element => {
     let x = util.format(
       "('%d','%d','%d'), ",
       orderNo,
-      element.itemId,
-      element.qty
+      element["item_id"],
+      element["qty"]
     );
     sql += x;
   });
   sql = sql.slice(0, -2);
-  sql += " ON DUPLICATE KEY qty UPDATE qty=VALUES(qty);";
+  sql += " ON DUPLICATE KEY UPDATE qty=VALUES(qty);";
+
+  console.log("sql", sql);
 
   database
     .query(sql)
     .then(data => res.status(204).json(data))
-    .catch(err => res.status(500).send({ error: err }));
+    .catch(err => res.status(500).json({ error: err }));
 });
 
 module.exports = router;

@@ -4,7 +4,8 @@ import {
   ITEMS_LOADING,
   UPDATE_ITEM_COUNT_FROM_ORDER,
   DELETE_ITEM_FROM_ORDER,
-  ADD_ITEM_TO_ORDER
+  ADD_ITEM_TO_ORDER,
+  UPDATE_ORDER
 } from "../actions/types";
 
 const initialState = {
@@ -27,6 +28,12 @@ export default function(state = initialState, action) {
         ...state,
         orderItems: action.payload,
         loading: false
+      };
+
+    case UPDATE_ORDER:
+      return {
+        ...state,
+        orderItems: [...state.orderItems]
       };
 
     case UPDATE_ITEM_COUNT_FROM_ORDER:
