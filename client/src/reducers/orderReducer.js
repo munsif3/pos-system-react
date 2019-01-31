@@ -71,16 +71,30 @@ export default function(state = initialState, action) {
         element => element["item_id"] === action.payload.itemId
       );
       let items = [];
-      if (index === -1) {
-        action.payload.items.items.map(({ item_id, unit_price }) =>
-          action.payload.newItem.item_id === item_id
-            ? (action.payload.newItem.unit_price = unit_price)
-            : action.payload.newItem
-        );
-        items = [...state.orderItems, action.payload.newItem];
-      } else {
+      if (index > -1) {
+        console.log("item found", index);
+
         items = [...state.orderItems];
         items[index].qty += action.payload.qty;
+      } else {
+        console.log("item not found", index);
+        action.payload.items.items.forEach(({ item_id, unit_price }) => {
+          if (action.payload.newItem.item_id === item_id) {
+            console.log("item_id", item_id);
+
+            action.payload.newItem.unit_price = unit_price;
+          }
+        });
+        // action.payload.items.items.map(({ item_id, unit_price }) => {
+        //   if (action.payload.newItem.item_id === item_id)
+        //     action.payload.newItem.unit_price = unit_price;
+        // });
+        // action.payload.items.items.map(({ item_id, unit_price }) =>
+        //   action.payload.newItem.item_id === item_id
+        //     ? (action.payload.newItem.unit_price = unit_price)
+        //     : action.payload.newItem
+        // );
+        items = [...state.orderItems, action.payload.newItem];
       }
 
       return {

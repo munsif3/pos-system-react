@@ -26,7 +26,7 @@ class Orders extends Component {
   render() {
     return (
       <Container>
-        <Row style={{ marginBottom: "5rem" }}>
+        <Row style={{ marginBottom: "3rem" }}>
           <Col style={{ textAlign: "center" }}>
             <h1>Pending Orders</h1>
           </Col>
@@ -57,6 +57,7 @@ class Orders extends Component {
               size="lg"
               style={{
                 marginTop: "2rem",
+                marginBottom: "2rem",
                 paddingLeft: "3rem",
                 paddingRight: "3rem",
                 paddingBottom: "1rem",

@@ -8,12 +8,14 @@ import {
   NavbarToggler,
   Nav,
   NavItem,
+  Row,
+  Col,
   Button
 } from "reactstrap";
 
 class AppNavBar extends Component {
   state = {
-    isOpen: false
+    collapsed: false
   };
 
   onLogout = e => {
@@ -21,30 +23,49 @@ class AppNavBar extends Component {
     this.props.logoutUser(this.props.history);
   };
 
-  toggle = () => {
-    this.setState({ isOpen: !this.state.isOpen });
+  toggleNavbar = () => {
+    this.setState({
+      collapsed: !this.state.collapsed
+    });
   };
 
   render() {
+    const createAvatar = (
+      <div className="avatar round">
+        <h3>
+          <b>{localStorage.username.charAt(0).toUpperCase()}</b>
+        </h3>
+      </div>
+    );
+
     const authLinks = (
       <div>
-        <Link className="navbar-brand" to="/">
-          OrderSys
-        </Link>
-        <NavbarToggler onClick={this.toggle} />
-        <Collapse isOpen={this.state.isOpen} navbar>
-          <Nav className="ml-auto" navbar>
-            <NavItem>
-              <Button
-                color="link"
-                className="nav-link float-right"
-                onClick={this.onLogout}
-              >
-                Logout
-              </Button>
-            </NavItem>
-          </Nav>
-        </Collapse>
+        <Row>
+          <Col style={{ marginTop: "5vh" }}>
+            <Link className="navbar-brand mr-auto" to="/">
+              OrderSys
+            </Link>
+          </Col>
+          <Col style={{ marginLeft: "80vw" }}>{createAvatar}</Col>
+        </Row>
+        <Row>
+          <Col style={{ marginLeft: "89vw" }}>
+            <Collapse isOpen={!this.state.collapsed} navbar>
+              <Nav navbar>
+                <NavItem>
+                  <Button
+                    color="link"
+                    className="nav-link float-right"
+                    onClick={this.onLogout}
+                  >
+                    Logout
+                  </Button>
+                </NavItem>
+              </Nav>
+            </Collapse>
+          </Col>
+        </Row>
+        <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
       </div>
     );
 
@@ -61,9 +82,11 @@ class AppNavBar extends Component {
     );
 
     return (
-      <Navbar expand="sm" className="mb-5" color="dark">
-        {this.props.auth.isAuthenticated ? authLinks : guestLinks}
-      </Navbar>
+      <div>
+        <Navbar expand="md" className="mb-5" color="dark">
+          {this.props.auth.isAuthenticated ? authLinks : guestLinks}
+        </Navbar>
+      </div>
     );
   }
 }

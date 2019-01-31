@@ -9,9 +9,10 @@ export const loginUser = user => dispatch => {
     .then(res => {
       const { token } = res.data;
       localStorage.setItem("jwtToken", token);
+      localStorage.setItem("username", user.username);
       setAuthToken(token);
       const decoded = jwt_decode(token);
-      dispatch(setCurrentUser(decoded, true));
+      dispatch(setCurrentUser(decoded));
     })
     .catch(err => {
       dispatch({
@@ -21,7 +22,7 @@ export const loginUser = user => dispatch => {
     });
 };
 
-export const setCurrentUser = (decoded, isLoggedIn) => dispatch => {
+export const setCurrentUser = decoded => dispatch => {
   dispatch({
     type: SET_CURRENT_USER,
     payload: decoded

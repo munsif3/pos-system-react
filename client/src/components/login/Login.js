@@ -34,10 +34,8 @@ class Login extends Component {
   };
 
   componentDidUpdate(prevProps) {
-    if (this.props.auth.isLoggedIn) {
-      console.log("->", this.props.auth);
+    if (this.props.auth.isAuthenticated) {
       this.props.history.push("/");
-      // this.context.history.push("/");
     }
     if (this.props.errors !== prevProps.errors) {
       this.setState({ errors: this.props.errors });
@@ -60,6 +58,7 @@ class Login extends Component {
               onSubmit={this.handleSubmit}
               className="form login"
               style={{
+                backgroundColor: "#f9f9f9",
                 border: "2px dashed #e5ac00",
                 borderRadius: "10px",
                 padding: "3rem"
