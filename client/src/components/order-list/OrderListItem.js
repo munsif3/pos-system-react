@@ -1,27 +1,15 @@
 import React, { Component } from "react";
 import { ListGroupItem, Row, Col, Badge } from "reactstrap";
 import { CSSTransition } from "react-transition-group";
-import { connect } from "react-redux";
-import { getOrders } from "../../actions/orderActions";
 
 class OrderListItem extends Component {
-  state = {
-    modal: false
-  };
-
-  componentDidMount() {
-    console.log("ORDERS!");
-
-    this.props.getOrders();
-  }
-
   formatDate = date => {
     return date.slice(0, 19).replace("T", " ");
   };
 
   render() {
     return (
-      <div>
+      <div style={{ height: "500px", overflow: "auto" }}>
         {this.props.orders.map(({ order_no, total_price, created_at }) => (
           <CSSTransition key={order_no} timeout={500} classNames="fade">
             <ListGroupItem
@@ -55,11 +43,4 @@ class OrderListItem extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  orders: state.order.orders
-});
-
-export default connect(
-  mapStateToProps,
-  { getOrders }
-)(OrderListItem);
+export default OrderListItem;

@@ -1,17 +1,16 @@
 import React, { Component } from "react";
 import {
-  Switch,
   Route,
-  Redirect,
   BrowserRouter as Router,
-  withRouter
+  withRouter,
+  Redirect,
+  Switch
 } from "react-router-dom";
-import { connect } from "react-redux";
 import NavBar from "./NavBar";
 import Orders from "../order-list/Orders";
 import Login from "../login/Login";
 import ProtectedRoute from "../common/ProtectedRoute";
-import { logoutUser } from "../../actions/authActions";
+import CreateError from "./CreateError";
 
 class Main extends Component {
   render() {
@@ -19,8 +18,12 @@ class Main extends Component {
       <Router>
         <div>
           <NavBar />
-          <Route path="/login" component={withRouter(Login)} />
-          <ProtectedRoute path="/orders" component={Orders} />
+          <Switch>
+            <Route exact path="/" render={() => <Redirect to="/orders" />} />
+            <Route path="/login" component={withRouter(Login)} />
+            <ProtectedRoute exact path="/orders" component={Orders} />
+            <Route path="*" component={CreateError} />
+          </Switch>
         </div>
       </Router>
     );
@@ -28,11 +31,3 @@ class Main extends Component {
 }
 
 export default Main;
-// const mapStateToProps = state => ({
-//   auth: state.auth
-// });
-
-// export default connect(
-//   mapStateToProps,
-//   { logoutUser }
-// )(Main);

@@ -17,8 +17,7 @@ class Login extends Component {
   state = {
     username: "",
     password: "",
-    errors: {},
-    redirectToReferrer: false
+    errors: {}
   };
 
   handleInputChange = e => {
@@ -35,6 +34,11 @@ class Login extends Component {
   };
 
   componentDidUpdate(prevProps) {
+    if (this.props.auth.isLoggedIn) {
+      console.log("->", this.props.auth);
+      this.props.history.push("/");
+      // this.context.history.push("/");
+    }
     if (this.props.errors !== prevProps.errors) {
       this.setState({ errors: this.props.errors });
     }
