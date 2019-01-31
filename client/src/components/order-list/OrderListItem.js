@@ -10,6 +10,8 @@ class OrderListItem extends Component {
   };
 
   componentDidMount() {
+    console.log("ORDERS!");
+
     this.props.getOrders();
   }
 

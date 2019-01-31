@@ -50,7 +50,7 @@ class Orders extends Component {
             </Button>
           </Col>
         </Row>
-        <Row>
+        <Row style={{ marginBottom: "5rem" }}>
           <Col>
             <ListGroup>
               <TransitionGroup>

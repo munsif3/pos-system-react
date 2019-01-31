@@ -1,24 +1,38 @@
-import React from "react";
-import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
-import Orders from "../order-list/Orders";
+import React, { Component } from "react";
+import {
+  Switch,
+  Route,
+  Redirect,
+  BrowserRouter as Router,
+  withRouter
+} from "react-router-dom";
+import { connect } from "react-redux";
 import NavBar from "./NavBar";
+import Orders from "../order-list/Orders";
 import Login from "../login/Login";
+import ProtectedRoute from "../common/ProtectedRoute";
+import { logoutUser } from "../../actions/authActions";
 
-const Main = () => {
-  return (
-    <main>
+class Main extends Component {
+  render() {
+    return (
       <Router>
         <div>
           <NavBar />
-          <Switch>
-            <Route exact path="/" component={Orders} />
-            <Route path="/login" component={Login} />
-          </Switch>
+          <Route path="/login" component={withRouter(Login)} />
+          <ProtectedRoute path="/orders" component={Orders} />
         </div>
       </Router>
-      <br />
-    </main>
-  );
-};
+    );
+  }
+}
 
 export default Main;
+// const mapStateToProps = state => ({
+//   auth: state.auth
+// });
+
+// export default connect(
+//   mapStateToProps,
+//   { logoutUser }
+// )(Main);

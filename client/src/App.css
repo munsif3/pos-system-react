@@ -5,6 +5,7 @@ body {
 
 ul.list-group {
   font-family: "Raleway", sans-serif;
+  cursor: pointer;
 }
 ul.list-group h2 {
   font-family: "Montserrat", sans-serif;
