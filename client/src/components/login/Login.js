@@ -98,7 +98,7 @@ class Login extends Component {
               </FormGroup>
               <br />
               <FormGroup className="text-center">
-                <Button size="lg" color="warning" style={{ width: "20rem" }}>
+                <Button size="lg" color="warning" style={{ width: "20vw" }}>
                   Login
                 </Button>
               </FormGroup>

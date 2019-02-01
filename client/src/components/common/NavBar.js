@@ -44,43 +44,53 @@ class AppNavBar extends Component {
 
     const authLinks = (
       <div>
-        <Row>
-          <Col style={{ marginTop: "5vh" }}>
-            <Link className="navbar-brand mr-auto" to="/">
-              OrderSys
-            </Link>
-          </Col>
-          <Col style={{ marginLeft: "80vw" }}>{createAvatar}</Col>
-        </Row>
-        <Row>
-          <Col style={{ marginLeft: "89vw" }}>
-            <Collapse isOpen={!this.state.collapsed} navbar>
-              <Nav navbar>
-                <NavItem>
-                  <Button
-                    color="link"
-                    className="nav-link float-right"
-                    onClick={this.onLogout}
-                  >
-                    Logout
-                  </Button>
-                </NavItem>
-              </Nav>
-            </Collapse>
-          </Col>
-        </Row>
+        <Link className="navbar-brand sys-name" to="/">
+          OrderSys
+        </Link>
+        <div className="avatar-holder">{createAvatar}</div>
+        <Collapse
+          isOpen={!this.state.collapsed}
+          style={{ float: "right" }}
+          navbar
+        >
+          <Nav className="nav-link mr-auto" navbar>
+            <NavItem>
+              <Button
+                className="btn-logout"
+                color="link"
+                onClick={this.onLogout}
+              >
+                Logout
+              </Button>
+            </NavItem>
+          </Nav>
+        </Collapse>
         <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
       </div>
     );
 
     const guestLinks = (
       <div>
-        <Nav className="ml-auto" navbar>
-          <NavItem>
-            <Link className="nav-link float-right" to="/login">
-              Sign In
-            </Link>
-          </NavItem>
+        <Nav className="ml-auto sign-in-nav" navbar>
+          <div
+            className="collapse navbar-collapse justify-content-between"
+            id="navbar"
+          >
+            <div className="navbar-nav nav-link">
+              <NavItem>
+                <Link className="nav-item nav-link" to="/">
+                  OrderSys
+                </Link>
+              </NavItem>
+            </div>
+            <div className="navbar-nav nav-link">
+              <NavItem>
+                <Link className="nav-item nav-link" to="/login">
+                  Sign In
+                </Link>
+              </NavItem>
+            </div>
+          </div>
         </Nav>
       </div>
     );

@@ -16,8 +16,8 @@ table {
 }
 
 .avatar {
-  margin: 20px 0px;
-  padding: 13px 17px;
+  margin: 10px 10px;
+  padding: 13px 19px;
   height: 60px;
   width: 60px;
   background: #efaf56;
@@ -25,6 +25,33 @@ table {
 
 .round {
   border-radius: 50%;
+}
+
+.avatar-holder {
+  float: right;
+  padding: 10px;
+}
+
+.sys-name {
+  font-size: 35px;
+  color: #f4fff6;
+  margin: 10px;
+}
+
+.sys-name:hover {
+  color: #efaf56;
+}
+
+.btn-logout {
+  float: right;
+  font-size: 20px;
+  color: #f4fff6;
+  margin: 10px;
+  padding: 10px;
+}
+
+.btn-logout:hover {
+  color: #ef566a;
 }
 
 .login {

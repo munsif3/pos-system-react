@@ -19,9 +19,6 @@ module.exports.query = (sql, args) => {
           return reject(err);
         }
         pool.releaseConnection(conn);
-        console.log("sql", sql);
-        console.log("args", args);
-
         resolve(rows);
       });
     });
