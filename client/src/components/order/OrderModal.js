@@ -51,8 +51,8 @@ class OrderModal extends Component {
     this.props.updateQuantity(indexOfChangedQty, qty);
   };
 
-  onItemDelete = id => {
-    this.props.deleteItemFromOrder(id);
+  onItemDelete = (orderId, itemId) => {
+    this.props.deleteItemFromOrder(orderId, itemId);
   };
 
   onItemAdd = (itemId, qty) => {

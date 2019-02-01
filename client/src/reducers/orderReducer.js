@@ -62,38 +62,25 @@ export default function(state = initialState, action) {
       return {
         ...state,
         orderItems: state.orderItems.filter(
-          orderItem => orderItem["item_id"] !== action.payload
+          orderItem => orderItem["item_id"] !== action.payload.itemId
         )
       };
 
     case ADD_ITEM_TO_ORDER:
       const index = state.orderItems.findIndex(
-        element => element["item_id"] === action.payload.itemId
+        element => element["item_id"] === action.payload.newItem.item_id
       );
+
       let items = [];
       if (index > -1) {
-        console.log("item found", index);
-
         items = [...state.orderItems];
-        items[index].qty += action.payload.qty;
+        items[index].qty += action.payload.newItem.qty;
       } else {
-        console.log("item not found", index);
         action.payload.items.items.forEach(({ item_id, unit_price }) => {
           if (action.payload.newItem.item_id === item_id) {
-            console.log("item_id", item_id);
-
             action.payload.newItem.unit_price = unit_price;
           }
         });
-        // action.payload.items.items.map(({ item_id, unit_price }) => {
-        //   if (action.payload.newItem.item_id === item_id)
-        //     action.payload.newItem.unit_price = unit_price;
-        // });
-        // action.payload.items.items.map(({ item_id, unit_price }) =>
-        //   action.payload.newItem.item_id === item_id
-        //     ? (action.payload.newItem.unit_price = unit_price)
-        //     : action.payload.newItem
-        // );
         items = [...state.orderItems, action.payload.newItem];
       }
 
@@ -112,3 +99,14 @@ export default function(state = initialState, action) {
       return state;
   }
 }
+
+// ADD ITEM TO ORDER
+// action.payload.items.items.map(({ item_id, unit_price }) => {
+//   if (action.payload.newItem.item_id === item_id)
+//     action.payload.newItem.unit_price = unit_price;
+// });
+// action.payload.items.items.map(({ item_id, unit_price }) =>
+//   action.payload.newItem.item_id === item_id
+//     ? (action.payload.newItem.unit_price = unit_price)
+//     : action.payload.newItem
+// );

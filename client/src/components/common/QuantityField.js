@@ -6,7 +6,7 @@ class QuantityField extends Component {
     return (
       <Input
         min="1"
-        max="3"
+        max="100"
         type="number"
         value={this.props.qty}
         onChange={e => this.props.onChangeQty(this.props.row, e.target.value)}

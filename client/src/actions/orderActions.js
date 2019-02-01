@@ -13,7 +13,7 @@ import store from "../store";
 export const getOrders = () => dispatch => {
   dispatch(setItemsLoading());
   axios
-    .get("/api/v1/orders")
+    .get("api/v1/orders")
     .then(res =>
       dispatch({
         type: GET_ORDER_LIST,
@@ -26,7 +26,7 @@ export const getOrders = () => dispatch => {
 export const getOrder = id => dispatch => {
   dispatch(setItemsLoading());
   axios
-    .get(`/api/v1/order-details/${id}`)
+    .get(`api/v1/order-details/${id}`)
     .then(res => {
       dispatch({
         type: GET_ORDER,
@@ -46,11 +46,19 @@ export const updateQuantity = (id, newQty) => dispatch => {
   });
 };
 
-export const deleteItemFromOrder = id => dispatch => {
-  dispatch({
-    type: DELETE_ITEM_FROM_ORDER,
-    payload: id
-  });
+export const deleteItemFromOrder = (orderId, itemId) => dispatch => {
+  axios
+    .delete(`api/v1/order-details/${orderId}/item/${itemId}`)
+    .then(res => {
+      dispatch({
+        type: DELETE_ITEM_FROM_ORDER,
+        payload: {
+          orderId: orderId,
+          itemId: itemId
+        }
+      });
+    })
+    .catch(err => console.error(err));
 };
 
 export const addItemToOrder = (itemId, qty) => dispatch => {

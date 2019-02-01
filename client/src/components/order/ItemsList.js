@@ -11,6 +11,7 @@ class ItemsList extends Component {
       <tr key={item_id}>
         <td>
           <DeleteItemButton
+            currentOrder={this.props.orderNo}
             currentItem={item_id}
             onDelete={this.props.onDelete}
           />

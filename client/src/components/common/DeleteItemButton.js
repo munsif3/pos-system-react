@@ -8,7 +8,7 @@ const DeleteItemButton = props => {
       color="danger"
       outline
       onClick={() => {
-        props.onDelete(props.currentItem);
+        props.onDelete(props.currentOrder, props.currentItem);
       }}
     >
       &times;

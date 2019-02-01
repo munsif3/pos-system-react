@@ -33,7 +33,11 @@ class AppNavBar extends Component {
     const createAvatar = (
       <div className="avatar round">
         <h3>
-          <b>{localStorage.username.charAt(0).toUpperCase()}</b>
+          <b>
+            {localStorage.username
+              ? localStorage.username.charAt(0).toUpperCase()
+              : "U"}
+          </b>
         </h3>
       </div>
     );

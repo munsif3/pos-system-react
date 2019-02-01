@@ -47,30 +47,20 @@ router.put("/:id", (req, res) => {
     .catch(err => res.status(500).json({ error: err }));
 });
 
+/**
+ * @route   DELETE api/v1/order-details/:orderNo/item/:itemId
+ * @desc    Delte an Item from an Order
+ * @access  Public
+ */
+router.delete("/:orderNo/item/:itemId", (req, res) => {
+  const sql = "DELETE FROM order_item_detail WHERE order_no= ? AND item_id= ?";
+  database
+    .query(sql, [req.params.orderNo, req.params.itemId])
+    .then(data => {
+      console.log(data);
+      res.status(200).json(data);
+    })
+    .catch(err => res.status(500).send({ error: err }));
+});
+
 module.exports = router;
-
-// /**
-//  * @route   POST api/v1/order-details
-//  * @desc    Add items to a new order, id from last inserted order
-//  * @access  Public
-//  */
-// router.post("/", (req, res) => {
-//   const orderNo = req.body.orderNo;
-//   const items = req.body.items;
-//   let sql = "INSERT INTO order_item_detail (order_no,item_id,qty) VALUES ";
-//   items.forEach(element => {
-//     let x = util.format(
-//       "('%d','%d','%d'), ",
-//       orderNo,
-//       element.itemId,
-//       element.qty
-//     );
-//     sql += x;
-//   });
-//   sql = sql.slice(0, -2);
-
-//   database
-//     .query(sql)
-//     .then(data => res.status(201).json(data))
-//     .catch(err => res.status(500).send({ error: err }));
-// });
