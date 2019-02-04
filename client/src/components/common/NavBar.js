@@ -8,8 +8,6 @@ import {
   NavbarToggler,
   Nav,
   NavItem,
-  Row,
-  Col,
   Button
 } from "reactstrap";
 
@@ -47,23 +45,21 @@ class AppNavBar extends Component {
         <Link className="navbar-brand sys-name" to="/">
           OrderSys
         </Link>
-        <div className="avatar-holder">{createAvatar}</div>
         <Collapse
           isOpen={!this.state.collapsed}
           style={{ float: "right" }}
           navbar
         >
-          <Nav className="nav-link mr-auto" navbar>
+          <div className="navbar-nav nav-link">
             <NavItem>
-              <Button
-                className="btn-logout"
-                color="link"
-                onClick={this.onLogout}
-              >
+              <div className="avatar-holder">{createAvatar}</div>
+            </NavItem>
+            <NavItem>
+              <Button className="btn-sign" color="link" onClick={this.onLogout}>
                 Logout
               </Button>
             </NavItem>
-          </Nav>
+          </div>
         </Collapse>
         <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
       </div>
@@ -71,27 +67,9 @@ class AppNavBar extends Component {
 
     const guestLinks = (
       <div>
-        <Nav className="ml-auto sign-in-nav" navbar>
-          <div
-            className="collapse navbar-collapse justify-content-between"
-            id="navbar"
-          >
-            <div className="navbar-nav nav-link">
-              <NavItem>
-                <Link className="nav-item nav-link" to="/">
-                  OrderSys
-                </Link>
-              </NavItem>
-            </div>
-            <div className="navbar-nav nav-link">
-              <NavItem>
-                <Link className="nav-item nav-link" to="/login">
-                  Sign In
-                </Link>
-              </NavItem>
-            </div>
-          </div>
-        </Nav>
+        <Link className="navbar-brand sys-name" to="/">
+          OrderSys
+        </Link>
       </div>
     );
 

@@ -4,12 +4,13 @@ import { CSSTransition } from "react-transition-group";
 
 class OrderListItem extends Component {
   formatDate = date => {
-    return date.slice(0, 19).replace("T", " ");
+    // a.split("T")[0]+ " " +a.split("T")[1].slice(0,-5)
+    return date.slice(0, 16).replace("T", " ");
   };
 
   render() {
     return (
-      <div style={{ height: "500px", overflow: "auto" }}>
+      <div style={{ height: "60vh", overflow: "auto" }}>
         {this.props.orders.map(({ order_no, total_price, created_at }) => (
           <CSSTransition key={order_no} timeout={500} classNames="fade">
             <ListGroupItem
@@ -29,7 +30,7 @@ class OrderListItem extends Component {
               </Row>
               <Row>
                 <Col>
-                  <small style={{ marginLeft: "2rem" }}>
+                  <small className="row-date">
                     <b>{this.formatDate(created_at)}</b>
                   </small>
                 </Col>

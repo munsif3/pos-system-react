@@ -15,6 +15,16 @@ table {
   font-family: "Open Sans", sans-serif;
 }
 
+.heading {
+  font-family: "Montserrat", monospace;
+}
+
+.row-date {
+  margin-left: 2rem;
+  font-family: "Montserrat", sans-serif;
+  font-size: 15px;
+}
+
 .avatar {
   margin: 10px 10px;
   padding: 13px 19px;
@@ -42,7 +52,7 @@ table {
   color: #efaf56;
 }
 
-.btn-logout {
+.btn-sign {
   float: right;
   font-size: 20px;
   color: #f4fff6;
@@ -50,8 +60,12 @@ table {
   padding: 10px;
 }
 
-.btn-logout:hover {
+.btn-sign:hover {
   color: #ef566a;
+}
+
+.btn-link:hover {
+  text-decoration: none;
 }
 
 .login {
@@ -85,4 +99,14 @@ table {
 .fade-exit-active {
   opacity: 0.01;
   transition: opacity 1000ms ease-out;
+}
+
+.modal-body {
+  background-color: #f8f8f8;
+  font-size: 20px;
+}
+
+.modal-header h5 {
+  font-size: 25px;
+  font-family: "Montserrat", sans-serif;
 }

@@ -6,6 +6,11 @@ const jwt = require("jsonwebtoken");
 const passport = require("passport");
 const validateLoginInput = require("../validation/login");
 
+/**
+ * @route   POST api/v1/users/login
+ * @desc    Authenticates the user
+ * @access  Public
+ */
 router.post("/login", (req, res) => {
   const { errors, isValid } = validateLoginInput(req.body);
   if (!isValid) {
@@ -14,7 +19,7 @@ router.post("/login", (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
   database
-    .query("SELECT * FROM user WHERE username=?", [username])
+    .query("SELECT * FROM user WHERE username = ?", [username])
     .then(user => {
       if (user.length < 1) {
         errors.username = "User not found";
@@ -26,7 +31,7 @@ router.post("/login", (req, res) => {
             id: user[0].id,
             name: user[0].name
           };
-          jwt.sign(payload, "secret", { expiresIn: 3600 }, (err, token) => {
+          jwt.sign(payload, "secret", { expiresIn: "12h" }, (err, token) => {
             if (err) console.error("There is some error in token", err);
             else {
               res.json({

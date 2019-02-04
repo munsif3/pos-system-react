@@ -44,7 +44,7 @@ router.put("/:id", (req, res) => {
   database
     .query(sql)
     .then(data => res.status(204).json(data))
-    .catch(err => res.status(500).json({ error: err }));
+    .catch(err => res.status(500).send({ error: err }));
 });
 
 /**
@@ -56,10 +56,7 @@ router.delete("/:orderNo/item/:itemId", (req, res) => {
   const sql = "DELETE FROM order_item_detail WHERE order_no= ? AND item_id= ?";
   database
     .query(sql, [req.params.orderNo, req.params.itemId])
-    .then(data => {
-      console.log(data);
-      res.status(200).json(data);
-    })
+    .then(data => res.status(200).json(data))
     .catch(err => res.status(500).send({ error: err }));
 });
 

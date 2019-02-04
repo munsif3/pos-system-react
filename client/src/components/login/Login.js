@@ -49,7 +49,7 @@ class Login extends Component {
       <Container>
         <Row style={{ marginBottom: "5rem" }}>
           <Col style={{ textAlign: "center" }}>
-            <h1>Sign In</h1>
+            <h1 className="heading">Sign In</h1>
           </Col>
         </Row>
         <Row>
@@ -76,6 +76,7 @@ class Login extends Component {
                   onChange={this.handleInputChange}
                   value={this.state.username}
                 />
+
                 {errors.username && (
                   <div className="invalid-feedback">{errors.username}</div>
                 )}

@@ -28,7 +28,7 @@ class Orders extends Component {
       <Container>
         <Row style={{ marginBottom: "3rem" }}>
           <Col style={{ textAlign: "center" }}>
-            <h1>Pending Orders</h1>
+            <h1 className="heading">Pending Orders</h1>
           </Col>
         </Row>
         <Row>
