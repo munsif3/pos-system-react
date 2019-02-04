@@ -9,7 +9,7 @@
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "test": "mocha ./tests --recursive",
+    "test": "jest --watch --debug --runInBand",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "repository": {
@@ -38,5 +38,19 @@
     "jest": "23.6.0",
     "nodemon": "^1.18.9",
     "supertest": "^3.4.2"
+  },
+  "jest": {
+    "verbose": true,
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "<rootDir>/routes/*.js",
+      "<rootDir>/validation/*.js",
+      "<rootDir>/!server.js",
+      "!<rootDir>/node_modules/"
+    ],
+    "coverageDirectory": "./coverage-report",
+    "watchPathIgnorePatterns": [
+      "./client"
+    ]
   }
 }
