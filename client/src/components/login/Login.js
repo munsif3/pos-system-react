@@ -44,11 +44,17 @@ class Login extends Component {
 
   render() {
     const { errors } = this.state;
+    const loginFormStyle = {
+      backgroundColor: "#f9f9f9",
+      border: "2px dashed #e5ac00",
+      borderRadius: "10px",
+      padding: "3rem"
+    };
 
     return (
       <Container>
-        <Row style={{ marginBottom: "5rem" }}>
-          <Col style={{ textAlign: "center" }}>
+        <Row>
+          <Col>
             <h1 className="heading">Sign In</h1>
           </Col>
         </Row>
@@ -57,12 +63,7 @@ class Login extends Component {
             <Form
               onSubmit={this.handleSubmit}
               className="form login"
-              style={{
-                backgroundColor: "#f9f9f9",
-                border: "2px dashed #e5ac00",
-                borderRadius: "10px",
-                padding: "3rem"
-              }}
+              style={loginFormStyle}
             >
               <FormGroup>
                 <Label>Username</Label>

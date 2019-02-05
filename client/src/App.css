@@ -16,6 +16,8 @@ table {
 }
 
 .heading {
+  margin-bottom: 2.5rem;
+  text-align: center;
   font-family: "Montserrat", monospace;
 }
 
@@ -26,7 +28,6 @@ table {
 }
 
 .avatar {
-  margin: 10px 10px;
   padding: 13px 19px;
   height: 60px;
   width: 60px;

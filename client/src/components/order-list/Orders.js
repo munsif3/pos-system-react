@@ -24,10 +24,18 @@ class Orders extends Component {
   }
 
   render() {
+    const newButtonStyle = {
+      marginTop: "2rem",
+      paddingLeft: "2rem",
+      paddingRight: "2rem",
+      paddingBottom: "1rem",
+      paddingTop: "1rem",
+      borderRadius: "50px"
+    };
     return (
       <Container>
-        <Row style={{ marginBottom: "3rem" }}>
-          <Col style={{ textAlign: "center" }}>
+        <Row>
+          <Col>
             <h1 className="heading">Pending Orders</h1>
           </Col>
         </Row>
@@ -55,14 +63,7 @@ class Orders extends Component {
               className="float-right"
               color="success"
               size="lg"
-              style={{
-                marginTop: "2rem",
-                marginBottom: "2rem",
-                paddingLeft: "3rem",
-                paddingRight: "3rem",
-                paddingBottom: "1rem",
-                paddingTop: "1rem"
-              }}
+              style={newButtonStyle}
               onClick={() => this.openModal(0)}
             >
               &#43;&nbsp; New

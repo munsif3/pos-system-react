@@ -4,8 +4,7 @@ import { CSSTransition } from "react-transition-group";
 
 class OrderListItem extends Component {
   formatDate = date => {
-    // a.split("T")[0]+ " " +a.split("T")[1].slice(0,-5)
-    return date.slice(0, 16).replace("T", " ");
+    return date.slice(0, 19).replace("T", " ");
   };
 
   render() {

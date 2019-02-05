@@ -51,14 +51,12 @@ class AppNavBar extends Component {
           navbar
         >
           <div className="navbar-nav nav-link">
-            <NavItem>
-              <div className="avatar-holder">{createAvatar}</div>
-            </NavItem>
-            <NavItem>
+            <div className="avatar-holder">{createAvatar}</div>
+            <div style={{ float: "right" }}>
               <Button className="btn-sign" color="link" onClick={this.onLogout}>
                 Logout
               </Button>
-            </NavItem>
+            </div>
           </div>
         </Collapse>
         <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />

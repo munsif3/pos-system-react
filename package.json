@@ -48,9 +48,9 @@
       "<rootDir>/!server.js",
       "!<rootDir>/node_modules/"
     ],
-    "coverageDirectory": "./coverage-report",
+    "coverageDirectory": "<rootDir>/coverage-report",
     "watchPathIgnorePatterns": [
-      "./client"
+      "<rootDir>/client/*"
     ]
   }
 }
