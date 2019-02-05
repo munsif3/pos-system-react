@@ -1,0 +1,2 @@
+INSERT INTO `user` (`username`,`password`,`last_login`) VALUES ('munsif','$2a$10$d6lbaF9pGQY9zVU4112lQO0qkxvW.RT6VlU1xFnifI3DTsWmHaEvK',NULL);
+INSERT INTO `user` (`username`,`password`,`last_login`) VALUES ('admin','$2a$10$SQD.KWMh/chSH/XuMH7OZueCUVh7TYU11YPi6auKgvdsu67/O2c4q',NULL);

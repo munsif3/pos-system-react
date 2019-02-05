@@ -1,0 +1,10 @@
+INSERT INTO `items` (`name`,`unit_price`,`stock_amount`) VALUES ('Chicken Burger',500,10);
+INSERT INTO `items` (`name`,`unit_price`,`stock_amount`) VALUES ('Cheese Burger',600,10);
+INSERT INTO `items` (`name`,`unit_price`,`stock_amount`) VALUES ('Beef Burger',700,10);
+INSERT INTO `items` (`name`,`unit_price`,`stock_amount`) VALUES ('Chicken Submarine',450,22);
+INSERT INTO `items` (`name`,`unit_price`,`stock_amount`) VALUES ('Beef Submarine',550,22);
+INSERT INTO `items` (`name`,`unit_price`,`stock_amount`) VALUES ('Shrimp Submarine',450,22);
+INSERT INTO `items` (`name`,`unit_price`,`stock_amount`) VALUES ('Apple Pie',300,12);
+INSERT INTO `items` (`name`,`unit_price`,`stock_amount`) VALUES ('Chocolate Cake',120,22);
+INSERT INTO `items` (`name`,`unit_price`,`stock_amount`) VALUES ('Coke',100,50);
+INSERT INTO `items` (`name`,`unit_price`,`stock_amount`) VALUES ('Dew',100,50);
