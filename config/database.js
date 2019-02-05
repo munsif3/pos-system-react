@@ -4,8 +4,8 @@ const pool = mysql.createPool({
   connectionLimit: process.env.MYSQL_CONNECTION_LIMIT || 10,
   host: process.env.MYSQL_HOST || "0.0.0.0",
   user: process.env.MYSQL_USER || "root",
-  password: "munsif123",
-  database: "possystem"
+  database: process.env.DB_NAME || "pos-system", // "pos-system-test"
+  password: process.env.DB_PASSWORD || "munsif123"
 });
 
 module.exports.query = (sql, args) => {

@@ -22,7 +22,7 @@ router.get("/", (req, res) => {
 router.post("/", (req, res) => {
   const timestamp = new Date()
     .toISOString()
-    .slice(0, 16)
+    .slice(0, 19)
     .replace("T", " ");
 
   database
@@ -41,11 +41,11 @@ router.post("/", (req, res) => {
  */
 router.put("/:id", (req, res) => {
   database
-    .query("UPDATE orders SET total_price =? WHERE order_no =?", [
+    .query("UPDATE orders SET total_price = ? WHERE order_no = ?", [
       req.body.total,
       req.params.id
     ])
-    .then(data => res.status(204).json(data))
+    .then(data => res.status(202).json(data))
     .catch(err => res.status(500).send({ error: err }));
 });
 
@@ -57,7 +57,7 @@ router.put("/:id", (req, res) => {
 router.get("/:id", (req, res) => {
   database
     .query("SELECT * FROM orders WHERE order_no = ?", [req.params.id])
-    .then(data => res.status(200).json(data[0]))
+    .then(data => res.status(200).json(data))
     .catch(err => res.status(500).send({ error: err }));
 });
 

@@ -22,7 +22,7 @@ router.get("/", (req, res) => {
 router.get("/:id", (req, res) => {
   database
     .query("SELECT * FROM items WHERE item_id = ?", [req.params.id])
-    .then(data => res.status(200).json(data[0]))
+    .then(data => res.status(200).json(data))
     .catch(err => res.status(500).send({ error: err }));
 });
 
