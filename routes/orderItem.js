@@ -9,6 +9,7 @@ const router = express.Router();
  * @access  Public
  */
 router.get("/:id", (req, res) => {
+  //next
   const sql = `SELECT d.order_no, d.item_id, d.qty, i.unit_price, i.name
               FROM items i, orders o, order_item_detail d
               WHERE o.order_no = ? 
@@ -18,6 +19,7 @@ router.get("/:id", (req, res) => {
     .query(sql, [req.params.id])
     .then(data => res.status(200).json(data))
     .catch(err => res.status(500).send({ error: err }));
+  // .catch(next);
 });
 
 /**

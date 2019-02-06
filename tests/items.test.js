@@ -1,7 +1,12 @@
 const request = require("supertest");
 const app = require("../app");
 
-const dew = { item_id: 1, name: "Dew", stock_amount: 50, unit_price: 100 };
+const burger = {
+  item_id: 1,
+  name: "Chicken Burger",
+  stock_amount: 10,
+  unit_price: 500
+};
 const items = [
   { item_id: 1, name: "Dew", stock_amount: 50, unit_price: 100 },
   { item_id: 2, name: "Coke", stock_amount: 50, unit_price: 100 },
@@ -44,6 +49,6 @@ describe("Tests '/items' REST Resource", () => {
   test("'/1' request should return item - Burger", async () => {
     const response = await request(app).get("/api/v1/items/1");
     expect(response.body.length).toBe(1);
-    expect(response.body[0]).toEqual(dew);
+    expect(response.body[0]).toEqual(burger);
   });
 });
