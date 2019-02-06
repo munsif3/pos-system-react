@@ -2,14 +2,7 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  Nav,
-  NavItem,
-  Button
-} from "reactstrap";
+import { Collapse, Navbar, NavbarToggler, Button } from "reactstrap";
 
 class AppNavBar extends Component {
   state = {
@@ -73,7 +66,7 @@ class AppNavBar extends Component {
 
     return (
       <div>
-        <Navbar expand="md" className="mb-5" color="dark">
+        <Navbar expand="md" className="mb-5 navbar-new" color="dark">
           {this.props.auth.isAuthenticated ? authLinks : guestLinks}
         </Navbar>
       </div>

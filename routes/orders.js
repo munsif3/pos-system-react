@@ -35,11 +35,11 @@ router.post("/", (req, res) => {
 });
 
 /**
- * @route PUT api/v1/orders/:id
+ * @route PUT api/v1/orders/:id/price
  * @desc Update total price for order
  * @access Public
  */
-router.put("/:id", (req, res) => {
+router.put("/:id/price", (req, res) => {
   database
     .query("UPDATE orders SET total_price = ? WHERE order_no = ?", [
       req.body.total,
@@ -58,6 +58,20 @@ router.get("/:id", (req, res) => {
   database
     .query("SELECT * FROM orders WHERE order_no = ?", [req.params.id])
     .then(data => res.status(200).json(data))
+    .catch(err => res.status(500).send({ error: err }));
+});
+
+/**
+ * @route PUT api/v1/orders/:id/close
+ * @desc Close an order
+ * @access Public
+ */
+router.put("/:id/close", (req, res) => {
+  database
+    .query("UPDATE orders SET is_open = false WHERE order_no = ?", [
+      req.params.id
+    ])
+    .then(data => res.status(202).json(data))
     .catch(err => res.status(500).send({ error: err }));
 });
 

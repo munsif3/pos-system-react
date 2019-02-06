@@ -105,7 +105,7 @@ export const addNewOrder = order => dispatch => {
 
 export const updateOrderTotal = (orderId, total) => dispatch => {
   axios
-    .put(`api/v1/orders/${orderId}`, { total: total })
+    .put(`api/v1/orders/${orderId}/price`, { total: total })
     .then(res => {
       dispatch(getOrders());
     })

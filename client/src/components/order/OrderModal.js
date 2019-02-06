@@ -28,7 +28,7 @@ class OrderModal extends Component {
     this.state = {
       modal: this.props.modal,
       selectedItem: "1",
-      changedQty: 0
+      changedQty: 1
     };
   }
 
@@ -114,7 +114,7 @@ class OrderModal extends Component {
           </ModalHeader>
           <ModalBody>
             <Form onSubmit={this.onSubmit}>
-              <Table responsive>
+              <Table className="modal-table">
                 <thead>
                   <tr>
                     <th />

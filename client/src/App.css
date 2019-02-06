@@ -13,7 +13,16 @@ ul.list-group h2 {
 
 table {
   font-family: "Open Sans", sans-serif;
+  width: 100%;
 }
+
+/* thead th {
+  width: 20%;
+}
+
+tbody td {
+  width: 2%;
+} */
 
 .heading {
   margin-bottom: 2.5rem;
@@ -21,8 +30,31 @@ table {
   font-family: "Montserrat", monospace;
 }
 
+/* .modal-table tbody {
+  display: block;
+  overflow: auto;
+  height: 50vh;
+}
+
+.modal-table thead th {
+  display: inline;
+} */
+
+.modal-body {
+  background-color: #f8f8f8;
+  font-size: 20px;
+}
+
+.modal-header h5 {
+  font-size: 25px;
+  font-family: "Montserrat", sans-serif;
+}
+
+.navbar-new {
+  display: block;
+}
+
 .row-date {
-  margin-left: 2rem;
   font-family: "Montserrat", sans-serif;
   font-size: 15px;
 }
@@ -31,7 +63,7 @@ table {
   padding: 13px 19px;
   height: 60px;
   width: 60px;
-  background: #efaf56;
+  background: #e3a970;
 }
 
 .round {
@@ -40,7 +72,7 @@ table {
 
 .avatar-holder {
   float: right;
-  padding: 10px;
+  padding: 5px 0px;
 }
 
 .sys-name {
@@ -65,6 +97,15 @@ table {
   color: #ef566a;
 }
 
+.btn-new {
+  margin-top: 2rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+  border-radius: 50px;
+}
+
 .btn-link:hover {
   text-decoration: none;
 }
@@ -77,13 +118,15 @@ table {
   background-color: #f4fff6;
 }
 
-.order-list-item {
-  margin: "1rem";
+.order-list {
+  height: 60vh;
+  overflow: auto;
 }
 
 .remove-btn {
   margin-right: 0.5rem;
 }
+
 .fade-enter {
   opacity: 0.01;
 }
@@ -100,14 +143,4 @@ table {
 .fade-exit-active {
   opacity: 0.01;
   transition: opacity 1000ms ease-out;
-}
-
-.modal-body {
-  background-color: #f8f8f8;
-  font-size: 20px;
-}
-
-.modal-header h5 {
-  font-size: 25px;
-  font-family: "Montserrat", sans-serif;
 }

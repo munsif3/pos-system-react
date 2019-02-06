@@ -24,14 +24,6 @@ class Orders extends Component {
   }
 
   render() {
-    const newButtonStyle = {
-      marginTop: "2rem",
-      paddingLeft: "2rem",
-      paddingRight: "2rem",
-      paddingBottom: "1rem",
-      paddingTop: "1rem",
-      borderRadius: "50px"
-    };
     return (
       <Container>
         <Row>
@@ -60,10 +52,9 @@ class Orders extends Component {
               modal={this.state.modal}
             />
             <Button
-              className="float-right"
+              className="float-right btn-new"
               color="success"
               size="lg"
-              style={newButtonStyle}
               onClick={() => this.openModal(0)}
             >
               &#43;&nbsp; New
